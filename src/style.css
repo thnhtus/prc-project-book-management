@@ -1,0 +1,141 @@
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.container {
+  width: 85%;
+  height: 100%;
+}
+
+.main-content {
+  width: 100%;
+  height: 85%;
+  background-color: blueviolet;
+}
+
+.side-nav {
+  width: 15%;
+  height: 100%;
+  border-right: 1px solid #D5D8EC;
+}
+.side-nav .logo {
+  margin-top: 30px;
+  padding-left: 10px;
+  font-size: 25px;
+  font-weight: 700;
+  color: #2E2E30;
+}
+.side-nav .logo span {
+  margin-left: 10px;
+}
+.side-nav .user-infor {
+  display: flex;
+  height: 300px;
+  border: 1px solid #D5D8EC;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 40px;
+  color: #D5D8EC;
+}
+.side-nav .user-infor .user-image {
+  width: 100px;
+  height: 100px;
+  border: 1px solid #D5D8EC;
+  border-radius: 50%;
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.side-nav .user-infor .user-image .user-outlined {
+  font-size: 50px;
+}
+.side-nav .user-infor .user-name {
+  width: 200px;
+  height: 50px;
+  text-align: center;
+  margin-top: 20px;
+  border: 1px solid #D5D8EC;
+  line-height: 0.1;
+  padding: 13px 0 10px 0;
+  border-radius: 10px;
+  background-color: #DFDFDF;
+}
+.side-nav .user-infor .user-name .name {
+  font-size: 20px;
+  color: #2E2E30;
+  font-weight: 700;
+}
+.side-nav .user-infor .user-name .user-location {
+  color: #5c5c61;
+  font-size: 12px;
+}
+.side-nav .sidebar-menu {
+  border: 1px solid #D5D8EC;
+  height: 400px;
+}
+.side-nav .sidebar-menu .page {
+  margin: 30px 0 0 30px;
+}
+.side-nav .sidebar-menu .sidebar-list {
+  border: 1px solid #D5D8EC;
+  padding-left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.side-nav .sidebar-menu .sidebar-list li {
+  width: 210px;
+  height: 40px;
+  border: 1px solid #D5D8EC;
+  color: red;
+  font-size: 16px;
+  list-style-type: none;
+  margin-top: 20px;
+  padding: 5px 0 0 10px;
+  border-radius: 10px;
+}
+.side-nav .sidebar-menu .sidebar-list li:hover {
+  background-color: #DFDFDF;
+}
+.side-nav .sidebar-menu .sidebar-list span {
+  margin-left: 5px;
+}
+.side-nav .logout {
+  width: 100%;
+  height: 100px;
+  border: 1px solid #D5D8EC;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-bar {
+  width: 100%;
+  border: 1px solid black;
+  height: 10%;
+}
+
+.footer {
+  width: 100%;
+  height: 5%;
+  border: 1px solid black;
+  text-align: center;
+}
+
+/*# sourceMappingURL=style.css.map */
