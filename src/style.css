@@ -21,23 +21,17 @@ body {
   height: 100%;
 }
 
-.main-content {
-  width: 100%;
-  height: 85%;
-  background-color: blueviolet;
-}
-
 .side-nav {
   width: 15%;
   height: 100%;
-  border-right: 1px solid #D5D8EC;
+  border-right: 1px solid #d5d8ec;
 }
 .side-nav .logo {
   margin-top: 30px;
   padding-left: 10px;
-  font-size: 25px;
+  font-size: 20px;
   font-weight: 700;
-  color: #2E2E30;
+  color: #2e2e30;
 }
 .side-nav .logo span {
   margin-left: 10px;
@@ -45,16 +39,16 @@ body {
 .side-nav .user-infor {
   display: flex;
   height: 300px;
-  border: 1px solid #D5D8EC;
+  border: 1px solid #d5d8ec;
   align-items: center;
   flex-direction: column;
   margin-top: 40px;
-  color: #D5D8EC;
+  color: #d5d8ec;
 }
 .side-nav .user-infor .user-image {
   width: 100px;
   height: 100px;
-  border: 1px solid #D5D8EC;
+  border: 1px solid #d5d8ec;
   border-radius: 50%;
   margin-top: 40px;
   display: flex;
@@ -69,15 +63,15 @@ body {
   height: 50px;
   text-align: center;
   margin-top: 20px;
-  border: 1px solid #D5D8EC;
+  border: 1px solid #d5d8ec;
   line-height: 0.1;
   padding: 13px 0 10px 0;
   border-radius: 10px;
-  background-color: #DFDFDF;
+  background-color: #ececec;
 }
 .side-nav .user-infor .user-name .name {
   font-size: 20px;
-  color: #2E2E30;
+  color: #2e2e30;
   font-weight: 700;
 }
 .side-nav .user-infor .user-name .user-location {
@@ -85,33 +79,33 @@ body {
   font-size: 12px;
 }
 .side-nav .sidebar-menu {
-  border: 1px solid #D5D8EC;
   height: 400px;
 }
 .side-nav .sidebar-menu .page {
   margin: 30px 0 0 30px;
+  font-weight: 500;
 }
 .side-nav .sidebar-menu .sidebar-list {
-  border: 1px solid #D5D8EC;
   padding-left: 0;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  transition: 0.5s all ease;
 }
 .side-nav .sidebar-menu .sidebar-list li {
   width: 210px;
   height: 40px;
-  border: 1px solid #D5D8EC;
-  color: red;
+  color: #2e2e30;
   font-size: 16px;
   list-style-type: none;
   margin-top: 20px;
   padding: 5px 0 0 10px;
-  border-radius: 10px;
+  border-radius: 5px;
+  transition: 0.5s all ease;
 }
 .side-nav .sidebar-menu .sidebar-list li:hover {
-  background-color: #DFDFDF;
+  background-color: #ececec;
 }
 .side-nav .sidebar-menu .sidebar-list span {
   margin-left: 5px;
@@ -119,23 +113,105 @@ body {
 .side-nav .logout {
   width: 100%;
   height: 100px;
-  border: 1px solid #D5D8EC;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.side-nav .logout .logout-btn {
+  width: 150px;
+  border-radius: 5px;
+}
+.side-nav .logout .logout-btn .logout-btn-text {
+  margin-left: 5px;
+  font-weight: 700;
 }
 
 .nav-bar {
   width: 100%;
   border: 1px solid black;
-  height: 10%;
+  height: 5%;
+}
+
+.main-content-container {
+  width: 100%;
+  height: 90%;
+  padding: 20px;
+}
+.main-content-container .main-content {
+  background-color: white;
+  display: flex;
+  flex-wrap: wrap;
+  border: 1px solid #d5d8ec;
+}
+.main-content-container .main-content .main-content-row {
+  width: 100%;
+  border: 1px solid #d5d8ec;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+.main-content-container .main-content .main-content-row .total-statistics {
+  display: inline-flex;
+}
+.main-content-container .main-content .main-content-row .total-statistics div {
+  width: 15px;
+  height: 15px;
+  background-color: #0468c5;
+  margin-top: 7px;
+  border-radius: 0.25rem;
+}
+.main-content-container .main-content .main-content-row .total-statistics p {
+  margin-left: 15px;
+  font-size: 18px;
+  font-weight: 700;
+}
+.main-content-container .main-content .main-content-row .main-content-total {
+  width: auto;
+  border: 1px solid #d5d8ec;
+  border-radius: 0.25rem;
+}
+.main-content-container .main-content .main-content-row .main-content-total .main-content-total-component {
+  width: 500px;
+  height: 100px;
+  display: flex;
+  justify-content: space-between;
+  padding-left: 25px;
+}
+.main-content-container .main-content .main-content-row .main-content-total .main-content-total-component .main-content-total-component-number {
+  width: 200px;
+  height: 100%;
+}
+.main-content-container .main-content .main-content-row .main-content-total .main-content-total-component .main-content-total-component-number .total-number {
+  font-size: 40px;
+  font-weight: 700;
+  margin: 0;
+}
+.main-content-container .main-content .main-content-row .main-content-total .main-content-total-component .main-content-total-component-number p {
+  font-size: 15px;
+  font-weight: 500;
+  color: #858585;
+  margin: -5px 0 0 5px;
+}
+.main-content-container .main-content .main-content-row .main-content-total .main-content-total-component .main-content-total-component-chart {
+  width: 200px;
+  height: 100%;
+  border: 1px solid #d5d8ec;
+  border-radius: 0.25rem;
+}
+.main-content-container .main-content .main-content-row .main-content-chart {
+  width: 100%;
+  height: 500pxnpm install chartist --save;
 }
 
 .footer {
   width: 100%;
   height: 5%;
-  border: 1px solid black;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.footer p {
+  margin-top: 10px;
 }
 
 /*# sourceMappingURL=style.css.map */
