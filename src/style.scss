@@ -183,11 +183,14 @@ body {
 
     .main-content-row {
       width: 100%;
-      border: 1px solid $border-color;
+      //border: 1px solid $border-color;
       display: flex;
       flex-wrap: nowrap;
       justify-content: space-between;
-
+      
+      /* ---------------------------------
+                OVERVIEW PAGE
+      ---------------------------------  */                            
       .total-statistics {
         display: inline-flex;
         div {
@@ -258,6 +261,34 @@ body {
         height: 500pxnpm install chartist --save;
 
         
+      }
+
+      /* -------------------------------
+              BOOKSLIST PAGE
+      ------------------------------- */
+      
+
+      .books-list {
+        display: inline-flex;
+        padding-top: 30px;
+        div {
+          width: 15px;
+          height: 15px;
+          //border: 1px solid $border-color;
+          background-color: #0468c5;
+          margin-top: 7px;
+          border-radius: .25rem;
+        }
+
+        p {
+          margin-left: 15px;
+          font-size: 18px;
+          font-weight: 700;
+        }
+      }
+
+      .books-table {
+        width: 100%;
       }
     }
     
