@@ -1,6 +1,8 @@
-$default-font-color: #2E2E30;
-$border-color: #D5D8EC;
-$background-color: #DFDFDF;
+
+
+$default-font-color: #2e2e30;
+$border-color: #d5d8ec;
+$background-color: #ececec;
 body {
   margin: 0;
   // font-family: Inter, -apple-system, BlinkMacSystemFont, "segoe ui", Roboto,
@@ -31,26 +33,18 @@ body {
   height: 100%;
 }
 
-//main page
-.main-content {
-  width: 100%;
-  height: 85%;
-  background-color: blueviolet;
-}
+
 
 //sidebar css
 .side-nav {
   width: 15%;
   height: 100%;
   border-right: 1px solid $border-color;
-  
-  
 
   .logo {
-    
     margin-top: 30px;
     padding-left: 10px;
-    font-size: 25px;
+    font-size: 20px;
     font-weight: 700;
     color: $default-font-color;
     span {
@@ -105,29 +99,32 @@ body {
   }
 
   .sidebar-menu {
-    border: 1px solid $border-color;
+    //border: 1px solid $border-color;
     height: 400px;
     .page {
       margin: 30px 0 0 30px;
+      font-weight: 500;
     }
-    
+
     .sidebar-list {
-      border: 1px solid $border-color;
+      //border: 1px solid $border-color;
       padding-left: 0;
       display: flex;
       justify-content: center;
       align-items: center;
       flex-direction: column;
+      transition: 0.5s all ease;
       li {
         width: 210px;
         height: 40px;
-        border: 1px solid $border-color;
-        color: red;
+        //border: 1px solid $border-color;
+        color: $default-font-color;
         font-size: 16px;
         list-style-type: none;
         margin-top: 20px;
-        padding:5px 0 0 10px;
-        border-radius: 10px;
+        padding: 5px 0 0 10px;
+        border-radius: 5px;
+        transition: 0.5s all ease;
       }
 
       li:hover {
@@ -138,17 +135,29 @@ body {
         margin-left: 5px;
       }
     }
-
-
   }
 
-  .logout{
+  .logout {
+    //margin-top: 25px;
     width: 100%;
     height: 100px;
-    border: 1px solid $border-color;
+    //border: 1px solid $border-color;
     display: flex;
     justify-content: center;
     align-items: center;
+
+    .logout-btn {
+      width: 150px;
+      //height: 40px;
+      //border: 1px solid $border-color;
+      //font-size: 17px;
+      border-radius: 5px;
+
+      .logout-btn-text {
+        margin-left: 5px;
+        font-weight: 700;
+      }
+    }
   }
 }
 
@@ -156,13 +165,149 @@ body {
 .nav-bar {
   width: 100%;
   border: 1px solid black;
-  height: 10%;
+  height: 5%;
 }
+
+//main page
+.main-content-container {
+  width: 100%;
+  height: 90%;
+  padding: 20px;
+  //background-color: $background-color;
+  
+  .main-content {
+    background-color: white;
+    display: flex;
+    flex-wrap: wrap;
+    border: 1px solid $border-color;
+
+    .main-content-row {
+      width: 100%;
+      //border: 1px solid $border-color;
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      
+      /* ---------------------------------
+                OVERVIEW PAGE
+      ---------------------------------  */                            
+      .total-statistics {
+        display: inline-flex;
+        div {
+          width: 15px;
+          height: 15px;
+          //border: 1px solid $border-color;
+          background-color: #0468c5;
+          margin-top: 7px;
+          border-radius: .25rem;
+        }
+
+        p {
+          margin-left: 15px;
+          font-size: 18px;
+          font-weight: 700;
+        }
+      }
+
+
+      .main-content-total {
+        width: auto;
+        // display: flex;
+        // align-items: center;
+        // justify-content: center;
+        border: 1px solid $border-color;
+        border-radius: .25rem;
+
+        .main-content-total-component {
+          width: 500px;
+          height: 100px;
+          display: flex;
+          justify-content: space-between;
+          padding-left: 25px;
+          
+          
+          .main-content-total-component-number {
+            width: 200px;
+            height: 100%;
+            //border: 1px solid $border-color;
+
+            .total-number {
+              font-size: 40px;
+              font-weight: 700;
+              margin: 0;
+            }
+
+            p {
+              font-size: 15px;
+              font-weight: 500;
+              color: rgb(133, 133, 133);
+              margin:-5px 0 0 5px;
+            }
+          }
+
+          .main-content-total-component-chart {
+            width: 200px;
+            height: 100%;
+            border: 1px solid $border-color;
+            border-radius: .25rem;
+          }
+        }
+  
+        
+      }
+
+      .main-content-chart {
+        width: 100%;
+        height: 500pxnpm install chartist --save;
+
+        
+      }
+
+      /* -------------------------------
+              BOOKSLIST PAGE
+      ------------------------------- */
+      
+
+      .books-list {
+        display: inline-flex;
+        padding-top: 30px;
+        div {
+          width: 15px;
+          height: 15px;
+          //border: 1px solid $border-color;
+          background-color: #0468c5;
+          margin-top: 7px;
+          border-radius: .25rem;
+        }
+
+        p {
+          margin-left: 15px;
+          font-size: 18px;
+          font-weight: 700;
+        }
+      }
+
+      .books-table {
+        width: 100%;
+      }
+    }
+    
+
+  }
+}
+
+
 
 //footer css
 .footer {
   width: 100%;
   height: 5%;
-  border: 1px solid black;
-  text-align: center;
+  //border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  p {
+    margin-top: 10px;
+  }
 }

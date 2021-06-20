@@ -1,18 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Button } from "antd";
 import {
   ReadOutlined,
   UserOutlined,
   AppstoreOutlined,
   BookOutlined,
-  HistoryOutlined
+  HistoryOutlined,
+  LogoutOutlined,
 } from "@ant-design/icons";
 const SideNav = () => {
   return (
     <div className="side-nav">
       <h1 className="logo">
         <ReadOutlined />
-        <span>BookDashboard</span>
+        <span>BOOKDASHBOARD</span>
       </h1>
       <div className="user-infor">
         <div className="user-image">
@@ -26,7 +28,7 @@ const SideNav = () => {
       <div className="sidebar-menu">
         <p className="page">PAGES</p>
         <ul className="sidebar-list">
-          <Link to="/">
+          <Link to="/" >
             <li>
               <AppstoreOutlined />
               <span>Overview</span>
@@ -47,7 +49,14 @@ const SideNav = () => {
         </ul>
       </div>
       <div className="logout">
-        <button>Logout</button>
+        <Button
+          className="logout-btn"
+          size="large"
+          type="danger"
+          icon={<LogoutOutlined />}
+        >
+          <span className="logout-btn-text">LOGOUT</span>
+        </Button>
       </div>
     </div>
   );
