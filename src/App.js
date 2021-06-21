@@ -6,6 +6,7 @@ import HomePage from "./components/HomePage";
 import BookListsPage from "./components/BookLists";
 import RequestHistoryPage from "./components/RequestHistoryPage";
 import FooterPage from "./components/FooterPage";
+import AddNewBookPage from './components/AddNewBookPage'
 
 function App() {
   return (
@@ -17,11 +18,14 @@ function App() {
           <Route exact path="/">
             <HomePage />
           </Route>
-          <Route path="/booklists">
+          <Route path="/bookLists">
             <BookListsPage />
           </Route>
-          <Route path="/requestshistory">
+          <Route path="/requestsHistory">
             <RequestHistoryPage />
+          </Route>
+          <Route path="/addNewBook">
+            <AddNewBookPage />
           </Route>
         </Switch>
         <FooterPage />

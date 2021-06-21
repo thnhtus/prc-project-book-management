@@ -1,6 +1,7 @@
-import { Input } from "antd";
+import { Input, Button } from "antd";
 import React from "react";
-import BooksData from "./data/BooksData";
+import BookTable from "./data/BookTable";
+import { Link } from "react-router-dom";
 //
 const BookLists = () => {
   const { Search } = Input;
@@ -19,6 +20,11 @@ const BookLists = () => {
               style={{ width: 600 }}
               enterButton
             />
+            <Link to="/addNewBook">
+            <Button type="primary" size="default" >
+              Add New Book
+            </Button>
+            </Link>
           </div>
         </div>
         <div className="main-content-row">
@@ -30,7 +36,7 @@ const BookLists = () => {
 
         <div className="main-content-row">
           <div className="books-table">
-            <BooksData />
+            <BookTable />
           </div>
         </div>
       </div>
