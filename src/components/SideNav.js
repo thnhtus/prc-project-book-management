@@ -34,13 +34,13 @@ const SideNav = () => {
               <span>Overview</span>
             </li>
           </Link>
-          <Link to="/booklists">
+          <Link to="/bookLists">
             <li>
               <BookOutlined />
               <span>Books List</span>
             </li>
           </Link>
-          <Link to="/requestshistory">
+          <Link to="/requestsHistory">
             <li>
               <HistoryOutlined />
               <span>Requests History</span>
