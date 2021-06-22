@@ -141,7 +141,6 @@ body {
   background-color: white;
   display: flex;
   flex-wrap: wrap;
-  border: 1px solid #d5d8ec;
 }
 .main-content-container .main-content .main-content-row {
   width: 100%;
@@ -153,6 +152,9 @@ body {
   ---------------------------------  */
   /* -------------------------------
           BOOKSLIST PAGE
+  ------------------------------- */
+  /* -------------------------------
+          ADD NEW BOOK PAGE
   ------------------------------- */
 }
 .main-content-container .main-content .main-content-row .total-statistics {
@@ -206,6 +208,9 @@ body {
 .main-content-container .main-content .main-content-row .main-content-chart {
   width: 100%;
   height: 500pxnpm install chartist --save;
+}
+.main-content-container .main-content .main-content-row .row-btn-add {
+  padding-right: 40px;
 }
 .main-content-container .main-content .main-content-row .books-list {
   display: inline-flex;

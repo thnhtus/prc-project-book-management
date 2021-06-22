@@ -2,7 +2,10 @@ import { Input, Button } from "antd";
 import React from "react";
 import BookTable from "./data/BookTable";
 import { Link } from "react-router-dom";
-//
+import {
+  PlusOutlined
+} from "@ant-design/icons";
+
 const BookLists = () => {
   const { Search } = Input;
 
@@ -20,8 +23,12 @@ const BookLists = () => {
               style={{ width: 600 }}
               enterButton
             />
+            
+          </div>
+          <div className="row-btn-add">
+            
             <Link to="/addNewBook">
-            <Button type="primary" size="default" >
+            <Button type="primary" size="large" icon={<PlusOutlined />}>
               Add New Book
             </Button>
             </Link>

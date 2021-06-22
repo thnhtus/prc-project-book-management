@@ -179,7 +179,7 @@ body {
     background-color: white;
     display: flex;
     flex-wrap: wrap;
-    border: 1px solid $border-color;
+    //border: 1px solid $border-color;
 
     .main-content-row {
       width: 100%;
@@ -267,6 +267,10 @@ body {
               BOOKSLIST PAGE
       ------------------------------- */
       
+      .row-btn-add {
+        padding-right: 40px;
+      }
+
 
       .books-list {
         display: inline-flex;
@@ -290,6 +294,12 @@ body {
       .books-table {
         width: 100%;
       }
+
+      /* -------------------------------
+              ADD NEW BOOK PAGE
+      ------------------------------- */
+
+
     }
     
 
