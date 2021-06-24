@@ -2,12 +2,22 @@ import { Input, Button } from "antd";
 import React from "react";
 import BookTable from "./data/BookTable";
 import { Link } from "react-router-dom";
+import { useState, useEffect } from 'react';
 import {
   PlusOutlined
 } from "@ant-design/icons";
+import AddNewBookForm from './AddNewBookForm'
+
 
 const BookLists = () => {
   const { Search } = Input;
+  //visible addNewBookForm popup
+  const [visible, setVisible] = useState(false);
+
+  const onCreate = (values) => {
+    console.log('Received values from form: ', values);
+    setVisible(false);
+  };
 
   return (
     <div className="main-content-container">
@@ -27,11 +37,22 @@ const BookLists = () => {
           </div>
           <div className="row-btn-add">
             
-            <Link to="/addNewBook">
-            <Button type="primary" size="large" icon={<PlusOutlined />}>
+            
+            <Button 
+            type="primary" 
+            size="large" 
+            icon={<PlusOutlined />} 
+            onClick={() => setVisible(true)}
+            >
               Add New Book
             </Button>
-            </Link>
+            <AddNewBookForm
+              visible={visible}
+              onCreate={onCreate}
+              onCancel={() => {
+                setVisible(false);
+              }}
+            />
           </div>
         </div>
         <div className="main-content-row">

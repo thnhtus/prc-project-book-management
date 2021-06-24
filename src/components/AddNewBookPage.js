@@ -1,7 +1,7 @@
-import { Input, Button, Form, InputNumber, Select } from "antd";
+import { Input, Button, Form, InputNumber, Select, Popconfirm, message } from "antd";
 import React from "react";
 import { useState, useEffect } from "react";
-import { PlusOutlined } from "@ant-design/icons";
+import { PlusOutlined, QuestionCircleOutlined } from "@ant-design/icons";
 import axios from "axios";
 
 const AddNewBookPage = () => {
@@ -55,7 +55,7 @@ const AddNewBookPage = () => {
   };
 
   const layout = {
-    labelCol: { span: 8 },
+    labelCol: { span: 4 },
     wrapperCol: { span: 16 },
   };
 
@@ -76,6 +76,17 @@ const AddNewBookPage = () => {
     console.log(values);
   };
 
+  //popup function
+  const cancel = (e) => {
+    console.log(e);
+    message.error('Click on Cancel')
+  }
+
+  const confirm = (e) => {
+    console.log(e);
+    message.success('Click on Confirm');
+  }
+
   return (
     <div className="main-content-container">
       <div className="main-content">
@@ -89,6 +100,7 @@ const AddNewBookPage = () => {
         <div className="main-content-row">
           <div className="add-book-form">
             <Form
+              className="book-form"
               {...layout}
               name="nest-messages"
               onFinish={onFinish}
@@ -147,9 +159,16 @@ const AddNewBookPage = () => {
                 <Button type="primary" htmlType="submit">
                   Submit
                 </Button>
-                <Button htmlType="button" style={{ margin: "0 8px" }}>
-                  Cancel
-                </Button>
+                <Popconfirm
+                  title="Are you sure to cancel this action?"
+                  icon={<QuestionCircleOutlined style={{ color: "red" }} />}
+                  onConfirm={confirm}
+                  onCancel={cancel}
+                >
+                  <Button htmlType="button" style={{ margin: "0 8px" }}>
+                    Cancel
+                  </Button>
+                </Popconfirm>
               </Form.Item>
             </Form>
           </div>
