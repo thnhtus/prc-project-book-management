@@ -1,28 +1,35 @@
 import React from "react";
-import { Table, Divider, Tag } from "antd";
+import { Table, Divider, Tag, Button, Space } from "antd";
 import axios from 'axios';
-import { useState, useEffect } from 'react'
-
+import { useState, useEffect } from 'react';
+import { DeleteOutlined } from '@ant-design/icons';
 
 const BookTable = () => {
-
-const [data, setData] = useState([]);
+//book data
+const [books, setBooks] = useState([]);
 
 useEffect(() => {
   getData();
 }, [])
 
 const getData = async () => {
-  await axios.get("https://jsonplaceholder.typicode.com/users")
+  await axios.get(`https://bookmanagementapi.azurewebsites.net/api/books/search-books`)
         .then(res => {
-          setData(res.data.map(row => ({
-            key: row.id,
-            name: row.name,
-            username: row.username,
-            email: row.email,
-            
+          setBooks(res.data.map(row => ({
+            key: row.bookId,
+            title: row.title,
+            category: row.categoryName,
+            author: row.author,
+            price: row.price,
+            amount: row.amount,
+            releaseYear: row.releaseYear,
+            publisher: row.publisher,
+            language: row.languageName
             
           })))
+        })
+        .then(() => {
+          console.log('Book', books)
         })
 }
 
@@ -32,29 +39,72 @@ const getData = async () => {
 
 const columns = [
   {
-    title: 'Name',
-    dataIndex: 'name',
-    key: 'name',
+    title: 'Book Title',
+    dataIndex: 'title',
+    key: 'title',
     render: text => <a>{text}</a>,
   },
   {
-    title: 'UserName',
-    dataIndex: 'username',
-    key: 'username',
-    sorter: {
-      compare: (a, b) => a.username.length - b.username.length,
-      multiple: 3,
-    },
+    title: 'Author',
+    dataIndex: 'author',
+    key: 'author',
+    // sorter: {
+    //   compare: (a, b) => a.username.length - b.username.length,
+    //   multiple: 3,
+    // },
   },
   {
-    title: 'Email',
-    dataIndex: 'email',
-    key: 'email',
+    title: 'Categories',
+    dataIndex: 'category',
+    key: 'category',
+    render: (category) => (
+      <>
+        {category === 'Romance' && <Tag color="red">{category}</Tag>}
+      </>
+    ),
+  },
+  {
+    title: 'Languages',
+    dataIndex: 'language',
+    key: 'language',
+  },
+  {
+    title: 'Publisher',
+    dataIndex: 'publisher',
+    key: 'publisher',
+    render: (publisher) => (
+      <>
+        {publisher === null ? 
+        (<span style={{ color: "red" }} >Unkown</span>) :
+        (<span >{publisher}</span>)
+        }
+      </>
+    ),
+  },
+  {
+    title: 'Price',
+    dataIndex: 'price',
+    key: 'price',
+    render: text => <p>${text}</p>
+  },
+  {
+    title: 'Amounts',
+    dataIndex: 'amount',
+    key: 'amount',
+  },
+  {
+    title: 'Action',
+    key: 'action',
+    render: () => (
+      <Space size="middle">
+        <Button type="danger" icon={<DeleteOutlined />}></Button>
+      </Space>
+    ),
   },
 ];
 
 
-  return <Table dataSource={data} columns={columns} bordered ></Table>;
+  return <Table dataSource={books} columns={columns} bordered ></Table>;
 };
 
 export default BookTable;
