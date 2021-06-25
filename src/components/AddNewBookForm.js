@@ -33,7 +33,7 @@ const AddNewBookForm = ({ visible, onCreate, onCancel }) => {
   const getCategories = async () => {
     await axios
       .get(
-        `https://cors-anywhere.herokuapp.com/https://bookmanagementapi.azurewebsites.net/api/categories/search-categories`
+        `https://bookmanagementapi.azurewebsites.net/api/categories/search-categories`
       )
       .then((res) => {
         setCategories(
@@ -52,7 +52,7 @@ const AddNewBookForm = ({ visible, onCreate, onCancel }) => {
   const getLanguages = async () => {
     await axios
       .get(
-        `https://cors-anywhere.herokuapp.com/https://bookmanagementapi.azurewebsites.net/api/languages/search-languages`
+        `https://bookmanagementapi.azurewebsites.net/api/languages/search-languages`
       )
       .then((res) => {
         setLanguages(

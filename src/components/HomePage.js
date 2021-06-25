@@ -1,5 +1,5 @@
 import React from "react";
-//import TotalChart from "./charts/TotalChart";
+import TotalChart from "./data/charts/TotalChart";
 
 const HomePage = () => {
   return (
@@ -45,7 +45,7 @@ const HomePage = () => {
         </div>
         <div className="main-content-row">
           <div className="main-content-chart">
-            {/* <TotalChart /> */}
+            <TotalChart />
           </div>
         </div>
       </div>

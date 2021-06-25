@@ -17,9 +17,13 @@ const TotalChart = () => {
     },
   };
 
-  var type = "Bar";
+  var type = "Line";
 
-  return <ChartistGraph data={data} options={options} type={type} />;
+  return (
+    <div>
+      <ChartistGraph data={data} options={options} type={type} />
+    </div>
+  );
 };
 
 export default TotalChart;
