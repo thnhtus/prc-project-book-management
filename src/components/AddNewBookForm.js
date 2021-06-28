@@ -7,18 +7,35 @@ import {
   Popconfirm,
   message,
   Modal,
+  DatePicker,
 } from "antd";
 import React from "react";
 import { useState, useEffect } from "react";
 import { PlusOutlined, QuestionCircleOutlined } from "@ant-design/icons";
 import axios from "axios";
 
-const AddNewBookForm = ({ visible, onCreate, onCancel }) => {
+const AddNewBookForm = ({ visible, onCancel }) => {
+  //generate to store data from input
+  const addBookData = [
+    {
+      categoryId: "",
+      title: "",
+      author: "",
+      price: 0,
+      amount: 0,
+      printLength: 0,
+      releaseYear: 0,
+      publisher: "",
+      description: "",
+      languageId: "",
+    },
+  ];
+
   const [form] = Form.useForm();
 
   const { Option } = Select;
-  //category
 
+  //category
   const [categories, setCategories] = useState([]);
   //language
 
@@ -67,6 +84,14 @@ const AddNewBookForm = ({ visible, onCreate, onCancel }) => {
       });
   };
 
+  //addbook to api
+  const onCreate = (values) => {
+    console.log("Values: ", values)
+  }
+
+
+
+
   const layout = {
     labelCol: { span: 5 },
     wrapperCol: { span: 16 },
@@ -89,21 +114,9 @@ const AddNewBookForm = ({ visible, onCreate, onCancel }) => {
     console.log(values);
   };
 
-  //popup function
-  // const cancel = (e) => {
-  //   console.log(e);
-  //   message.error("Click on Cancel");
-  // };
-
-  // const confirm = (e) => {
-  //   console.log(e);
-  //   message.success("Click on Confirm");
-  // };
-
   return (
     <Modal
       width={1000}
-      
       visible={visible}
       title="Add a new book"
       okText="Add Book"
@@ -125,73 +138,68 @@ const AddNewBookForm = ({ visible, onCreate, onCancel }) => {
         form={form}
         {...layout}
         name="add-new-book-form"
-        onFinish={onFinish}
-        validateMessages={validateMessages}
+        //onFinish={onFinish}
+        //validateMessages={validateMessages}
       >
         <Form.Item
-          name={["user", "book-title"]}
+          name={["book", "book-title"]}
           label="Book Title"
           rules={[{ required: true }]}
         >
           <Input />
         </Form.Item>
         <Form.Item
-          name={["user", "author"]}
+          name={["book", "author"]}
           label="Author"
           rules={[{ required: true }]}
         >
-          <Input />
+          <Input style={{ width: "50%" }} />
         </Form.Item>
         <Form.Item
-          name={["user", "price"]}
+          name={["book", "price"]}
           label="Price"
           rules={[{ type: "number", min: 0, max: 99999 }]}
         >
           <InputNumber />
         </Form.Item>
         <Form.Item
-          name={["user", "amount"]}
+          name={["book", "amount"]}
           label="Amount"
           rules={[{ type: "number", min: 0, max: 99999 }]}
         >
           <InputNumber />
         </Form.Item>
-        <Form.Item
-          name={["user", "release-year"]}
-          label="Release Year"
-          rules={[{ type: "number", min: 0, max: 99999 }]}
-        >
-          <InputNumber />
+        <Form.Item name={["book", "release-year"]} label="Release Year">
+          <DatePicker picker="year" mode="year"/>
         </Form.Item>
         <Form.Item
-          name={["user", "category"]}
+          name={["book", "category"]}
           label="Category"
           rules={[{ required: true }]}
         >
-          <Select placeholder="Select Category...">
+          <Select placeholder="Select Category..." style={{ width: "30%" }}>
             {categories.map((category) => (
               <Option key={category.key}>{category.name}</Option>
             ))}
           </Select>
         </Form.Item>
         <Form.Item
-          name={["user", "language"]}
+          name={["book", "language"]}
           label="Language"
           rules={[{ required: true }]}
         >
-          <Select placeholder="Select Language...">
+          <Select placeholder="Select Language..." style={{ width: "30%" }}>
             {languages.map((language) => (
               <Option key={language.key}>{language.name}</Option>
             ))}
           </Select>
         </Form.Item>
-        <Form.Item name={["user", "website"]} label="Publisher">
-          <Input />
+        <Form.Item name={["book", "publisher"]} label="Publisher">
+          <Input style={{ width: "40%" }} />
         </Form.Item>
-        <Form.Item name={["user", "introduction"]} label="Description">
+        <Form.Item name={["book", "description"]} label="Description">
           <Input.TextArea />
         </Form.Item>
-        
       </Form>
     </Modal>
   );
