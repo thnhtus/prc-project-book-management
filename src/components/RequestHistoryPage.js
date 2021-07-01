@@ -1,11 +1,96 @@
-import React from 'react'
+import {
+  Input,
+  Button,
+  Table,
+  Divider,
+  Tag,
+  Space,
+  Form,
+  Checkbox,
+} from "antd";
+import React from "react";
+// import BookTable from "./data/BookTable";
+import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { PlusOutlined, EditTwoTone } from "@ant-design/icons";
+import AddNewBookForm from "./AddNewBookForm";
+import HistoryTable from "./data/HistoryTable";
 
 const RequestHistoryPage = () => {
-    return (
-        <div className="main-content">
-            <h1>Requests History Page</h1>
-        </div>
-    )
-}
+  const { Search } = Input;
+  //visible addNewBookForm popup
+  const [visible, setVisible] = useState(false);
 
-export default RequestHistoryPage
+  const onCreate = (values) => {
+    console.log("Received values from form: ", values);
+    setVisible(false);
+  };
+
+  return (
+    <div className="main-content-container">
+      <div className="main-content">
+        <div className="main-content-row">
+          <div className="row-search">
+            <Input.Search
+              placeholder="Search..."
+              className="search-bar"
+              size="large"
+              allowClear
+              // onSearch={(search) => {
+              //   //set nameSearch
+              //   console.log("curr", search);
+              //   setNameSearch(search);
+              //   console.log("ns", nameSearch);
+              //   console.log("BD", books);
+              //   console.log(typeof books);
+
+              //   let i = 1;
+              //   const resultSearch = books.map((row) => ({
+              //     row.title.includes(nameSearch)
+              //   }));
+
+              //   console.log("SD", resultSearch);
+              //   if (resultSearch.length === 0) {
+              //     console.log("Arr Null!");
+              //   }
+              // }}
+              style={{ width: 600 }}
+              enterButton
+            />
+          </div>
+          <div className="row-btn-add">
+            <Button
+              type="primary"
+              size="large"
+              icon={<PlusOutlined />}
+              onClick={() => setVisible(true)}
+            >
+              Add New History
+            </Button>
+            <AddNewBookForm
+              visible={visible}
+              onCreate={onCreate}
+              onCancel={() => {
+                setVisible(false);
+              }}
+            />
+          </div>
+        </div>
+        <div className="main-content-row">
+          <div className="books-list">
+            <div></div>
+            <p>Histories List</p>
+          </div>
+        </div>
+
+        <div className="main-content-row">
+          <div className="books-table">
+            <HistoryTable />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default RequestHistoryPage;

@@ -6,7 +6,7 @@ import HomePage from "./components/HomePage";
 import BookListsPage from "./components/BookLists";
 import RequestHistoryPage from "./components/RequestHistoryPage";
 import FooterPage from "./components/FooterPage";
-import AddNewBookPage from './components/AddNewBookPage'
+
 
 function App() {
   return (
@@ -24,9 +24,7 @@ function App() {
           <Route path="/requestsHistory">
             <RequestHistoryPage />
           </Route>
-          <Route path="/addNewBook">
-            <AddNewBookPage />
-          </Route>
+          
         </Switch>
         <FooterPage />
       </div>

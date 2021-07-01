@@ -9,10 +9,13 @@
     "antd": "^4.16.3",
     "axios": "^0.21.1",
     "chartist": "^0.10.1",
+    "moment": "^2.29.1",
+    "moment-timezone": "^0.5.33",
     "react": "^17.0.2",
     "react-axios": "^2.0.5",
     "react-chartist": "^0.14.4",
     "react-dom": "^17.0.2",
+    "react-moment": "^1.1.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "web-vitals": "^1.0.1"
