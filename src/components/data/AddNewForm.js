@@ -14,7 +14,12 @@ import { useState, useEffect } from "react";
 import { PlusOutlined, QuestionCircleOutlined } from "@ant-design/icons";
 import axios from "axios";
 
-const AddNewBookForm = ({ visible, onCancel }) => {
+const AddNewForm = ({ visible, onCancel, selectedRow }) => {
+  //data
+  const [data, setData] = useState({
+    key: selectedRow[0].historyId,
+  });
+
   //generate to store data from input
   const addBookData = [
     {
@@ -86,11 +91,8 @@ const AddNewBookForm = ({ visible, onCancel }) => {
 
   //addbook to api
   const onCreate = (values) => {
-    console.log("Values: ", values)
-  }
-
-
-
+    console.log("Values: ", values);
+  };
 
   const layout = {
     labelCol: { span: 5 },
@@ -114,6 +116,12 @@ const AddNewBookForm = ({ visible, onCancel }) => {
     console.log(values);
   };
 
+  //show data
+  const onClick = () => {
+    console.log("Passed Data", selectedRow);
+    console.log(typeof data);
+  };
+
   return (
     <Modal
       width={1000}
@@ -134,7 +142,7 @@ const AddNewBookForm = ({ visible, onCancel }) => {
           });
       }}
     >
-      <Form
+      {/* <Form
         form={form}
         {...layout}
         name="add-new-book-form"
@@ -170,7 +178,7 @@ const AddNewBookForm = ({ visible, onCancel }) => {
           <InputNumber />
         </Form.Item>
         <Form.Item name={["book", "release-year"]} label="Release Year">
-          <DatePicker picker="year" mode="year"/>
+          <DatePicker picker="year" mode="year" />
         </Form.Item>
         <Form.Item
           name={["book", "category"]}
@@ -200,9 +208,10 @@ const AddNewBookForm = ({ visible, onCancel }) => {
         <Form.Item name={["book", "description"]} label="Description">
           <Input.TextArea />
         </Form.Item>
-      </Form>
+      </Form> */}
+      <Button onClick={onClick}>Click!</Button>
     </Modal>
   );
 };
 
-export default AddNewBookForm;
+export default AddNewForm;
