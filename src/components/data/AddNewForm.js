@@ -17,7 +17,7 @@ import axios from "axios";
 const AddNewForm = ({ visible, onCancel, selectedRow }) => {
   //data
   const [data, setData] = useState({
-    key: selectedRow[0].historyId,
+    //key: selectedRow[0].historyId,
   });
 
   //generate to store data from input
