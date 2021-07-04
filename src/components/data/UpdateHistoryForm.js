@@ -18,8 +18,6 @@ const UpdateHistoryForm = ({ visible, onCancel, fields }) => {
   //data
   //const [data, setData] = useState(fields);
 
-  useEffect(() => form.resetFields(), []);
-
   //generate to store data from input
   const addBookData = [
     {
@@ -38,6 +36,7 @@ const UpdateHistoryForm = ({ visible, onCancel, fields }) => {
 
   const [form] = Form.useForm();
 
+  useEffect(() => form.resetFields(), []);
   //addbook to api
   const onCreate = (values) => {
     console.log("Values: ", values);
