@@ -12,7 +12,7 @@ import {
 } from "antd";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import AddNewForm from "./AddNewForm";
+import UpdateHistoryForm from "./UpdateHistoryForm";
 import { DeleteOutlined, EditTwoTone } from "@ant-design/icons";
 //format date
 import Moment from "react-moment";
@@ -20,12 +20,12 @@ import "moment-timezone";
 
 const HistoryTable = () => {
   //selected row data
-  const [selectedRowData, setSelectedRowData] = useState([]);
+  const [fields, setFields] = useState();
   //histories data
   const [histories, setHistories] = useState([]);
 
   //visible modal
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     getData();
@@ -43,6 +43,7 @@ const HistoryTable = () => {
         setHistories(
           res.data.map((row) => ({
             rowIndex: i++,
+            key: row.historyId,
             historyId: row.historyId,
             bookId: row.bookId,
             bookTitle: row.bookTitle,
@@ -112,11 +113,13 @@ const HistoryTable = () => {
           render: (phone) => (
             <>
               {phone == null ? (
-                <span style={{ color: "red" }}>Unkown</span>
+                <span style={{ color: "red", fontWeight: 700 }}>Unkown</span>
               ) : (
                 <span>{phone}</span>
               )}
-              {phone === "" && <span style={{ color: "red" }}>Unkown</span>}
+              {phone === "" && (
+                <span style={{ color: "red", fontWeight: 700 }}>Unkown</span>
+              )}
             </>
           ),
         },
@@ -137,7 +140,7 @@ const HistoryTable = () => {
           {date !== null ? (
             <Moment format="YYYY-MM-DD">{date}</Moment>
           ) : (
-            <span style={{ color: "red" }}>Null</span>
+            <span style={{ color: "red", fontWeight: 700 }}>Null</span>
           )}
         </>
       ),
@@ -167,9 +170,9 @@ const HistoryTable = () => {
             type="default"
             icon={<EditTwoTone />}
             onClick={() => {
+              setFields(record);
               setVisible(true);
-              setSelectedRowData([record]);
-              console.log(selectedRowData);
+              console.log(fields);
             }}
           >
             Update
@@ -182,13 +185,13 @@ const HistoryTable = () => {
   return (
     <>
       <Table dataSource={histories} columns={columns} bordered></Table>
-      <AddNewForm
+      <UpdateHistoryForm
         visible={visible}
         onCreate={onCreate}
         onCancel={() => {
           setVisible(false);
         }}
-        selectedRow={selectedRowData}
+        fields={fields}
       />
     </>
   );
