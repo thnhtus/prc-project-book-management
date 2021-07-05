@@ -12,9 +12,17 @@ import {
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { DeleteOutlined, EditTwoTone } from "@ant-design/icons";
+import UpdateBookForm from "./UpdateBookForm";
 
 const BookTable = () => {
+  //book data fet from api
   const [books, setBooks] = useState([]);
+
+  //selected record data
+  const [fields, setFields] = useState();
+
+  //visible modal
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     getData();
@@ -44,6 +52,11 @@ const BookTable = () => {
       .then(() => {
         console.log("Book", books);
       });
+  };
+
+  const onCreate = (values) => {
+    console.log("Received values from form: ", values);
+    setVisible(false);
   };
 
   const columns = [
@@ -127,7 +140,13 @@ const BookTable = () => {
       align: "center",
       render: (record) => (
         <Space size="middle">
-          <Button type="default" icon={<EditTwoTone />}>
+          <Button
+            type="default"
+            icon={<EditTwoTone />}
+            onClick={() => {
+              setVisible(true);
+            }}
+          >
             Update
           </Button>
           {/* <Button type="danger" icon={<DeleteOutlined />}></Button> */}
@@ -136,7 +155,19 @@ const BookTable = () => {
     },
   ];
 
-  return <Table dataSource={books} columns={columns} bordered></Table>;
+  return (
+    <>
+      <Table dataSource={books} columns={columns} bordered></Table>
+      <UpdateBookForm
+        visible={visible}
+        onCreate={onCreate}
+        onCancel={() => {
+          setVisible(false);
+        }}
+        fields={fields}
+      />
+    </>
+  );
 };
 
 export default BookTable;

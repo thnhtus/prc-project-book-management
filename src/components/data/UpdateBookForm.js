@@ -15,7 +15,7 @@ import { PlusOutlined, QuestionCircleOutlined } from "@ant-design/icons";
 import axios from "axios";
 import moment from "moment";
 
-const UpdateHistoryForm = ({ visible, onCancel, fields }) => {
+const UpdateBookForm = ({ visible, onCancel, fields }) => {
   //data
   //const [data, setData] = useState(fields);
 
@@ -148,4 +148,4 @@ const UpdateHistoryForm = ({ visible, onCancel, fields }) => {
   );
 };
 
-export default UpdateHistoryForm;
+export default UpdateBookForm;

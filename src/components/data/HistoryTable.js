@@ -170,8 +170,8 @@ const HistoryTable = () => {
             type="default"
             icon={<EditTwoTone />}
             onClick={() => {
-              setVisible(true);
               setFields(record);
+              setVisible(true);
               console.log(fields);
             }}
           >

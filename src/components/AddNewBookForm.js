@@ -13,6 +13,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { PlusOutlined, QuestionCircleOutlined } from "@ant-design/icons";
 import axios from "axios";
+import moment from "moment";
 
 const AddNewBookForm = ({ visible, onCancel }) => {
   //generate to store data from input
@@ -38,6 +39,9 @@ const AddNewBookForm = ({ visible, onCancel }) => {
   //category
   const [categories, setCategories] = useState([]);
   //language
+
+  //store update data
+  const [updateBookData, setUpdateBookData] = useState();
 
   const [languages, setLanguages] = useState([]);
 
@@ -86,11 +90,9 @@ const AddNewBookForm = ({ visible, onCancel }) => {
 
   //addbook to api
   const onCreate = (values) => {
-    console.log("Values: ", values)
-  }
-
-
-
+    setUpdateBookData(values);
+    console.log("Update Data", updateBookData);
+  };
 
   const layout = {
     labelCol: { span: 5 },
@@ -114,6 +116,10 @@ const AddNewBookForm = ({ visible, onCancel }) => {
     console.log(values);
   };
 
+  const handleClick = () => {
+    console.log(moment(updateBookData.releaseYear).format("YYYY"));
+  };
+
   return (
     <Modal
       width={1000}
@@ -126,7 +132,7 @@ const AddNewBookForm = ({ visible, onCancel }) => {
         form
           .validateFields()
           .then((values) => {
-            form.resetFields();
+            //form.resetFields();
             onCreate(values);
           })
           .catch((info) => {
@@ -142,38 +148,34 @@ const AddNewBookForm = ({ visible, onCancel }) => {
         validateMessages={validateMessages}
       >
         <Form.Item
-          name={["book", "book-title"]}
+          name="bookTitle"
           label="Book Title"
           rules={[{ required: true }]}
         >
           <Input />
         </Form.Item>
-        <Form.Item
-          name={["book", "author"]}
-          label="Author"
-          rules={[{ required: true }]}
-        >
+        <Form.Item name="author" label="Author" rules={[{ required: true }]}>
           <Input style={{ width: "50%" }} />
         </Form.Item>
         <Form.Item
-          name={["book", "price"]}
+          name="price"
           label="Price"
           rules={[{ type: "number", min: 0, max: 99999 }]}
         >
           <InputNumber />
         </Form.Item>
         <Form.Item
-          name={["book", "amount"]}
+          name="amount"
           label="Amount"
           rules={[{ type: "number", min: 0, max: 99999 }]}
         >
           <InputNumber />
         </Form.Item>
-        <Form.Item name={["book", "release-year"]} label="Release Year">
-          <DatePicker picker="year" mode="year"/>
+        <Form.Item name="releaseYear" label="Release Year">
+          <DatePicker picker="year" mode="year" />
         </Form.Item>
         <Form.Item
-          name={["book", "category"]}
+          name="category"
           label="Category"
           rules={[{ required: true }]}
         >
@@ -184,7 +186,7 @@ const AddNewBookForm = ({ visible, onCancel }) => {
           </Select>
         </Form.Item>
         <Form.Item
-          name={["book", "language"]}
+          name="language"
           label="Language"
           rules={[{ required: true }]}
         >
@@ -194,13 +196,14 @@ const AddNewBookForm = ({ visible, onCancel }) => {
             ))}
           </Select>
         </Form.Item>
-        <Form.Item name={["book", "publisher"]} label="Publisher">
+        <Form.Item name="publisher" label="Publisher">
           <Input style={{ width: "40%" }} />
         </Form.Item>
-        <Form.Item name={["book", "description"]} label="Description">
+        <Form.Item name="description" label="Description">
           <Input.TextArea />
         </Form.Item>
       </Form>
+      <button onClick={handleClick}>Click me!</button>
     </Modal>
   );
 };
