@@ -87,21 +87,41 @@ const AddNewBookForm = ({ visible, onCancel }) => {
   };
 
   //addbook to api
-  const onCreate = async (values) => {
+  // const onCreate = async (values) => {
+  //   await axios
+  //     .post(
+  //       `https://bookmanagementapi.azurewebsites.net/api/languages/add-book`,
+  //       {
+  //         categoryId: `${values.category}`,
+  //         title: `${values.bookTitle}`,
+  //         author: `${values.author}`,
+  //         price: `${values.price}`,
+  //         amount: `${values.amount}`,
+  //         printLength: `${values.printLength}`,
+  //         releaseYear: `${moment(values.releaseYear).format("YYYY")}`,
+  //         publisher: `${values.publisher}`,
+  //         description: `${values.description}`,
+  //         languageId: `${values.language}`,
+  //       }
+  //     )
+  //     .then((res) => {
+  //       if (res.status === 200) {
+  //         message.success("Add book success!");
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       message.error("Cannot add book!");
+  //       console.log(err);
+  //     });
+  // };
+
+  const onCreate = async () => {
     await axios
       .post(
         `https://bookmanagementapi.azurewebsites.net/api/languages/add-book`,
         {
-          categoryId: `${values.category}`,
-          title: `${values.bookTitle}`,
-          author: `${values.author}`,
-          price: `${values.price}`,
-          amount: `${values.amount}`,
-          printLength: `${values.printLength}`,
-          releaseYear: `${moment(values.releaseYear).format("YYYY")}`,
-          publisher: `${values.publisher}`,
-          description: `${values.description}`,
-          languageId: `${values.language}`,
+          categoryId: 'asdasdasdad',
+          
         }
       )
       .then((res) => {
@@ -114,6 +134,7 @@ const AddNewBookForm = ({ visible, onCancel }) => {
         console.log(err);
       });
   };
+
 
   const layout = {
     labelCol: { span: 5 },
@@ -132,10 +153,6 @@ const AddNewBookForm = ({ visible, onCancel }) => {
     },
   };
   /* eslint-enable no-template-curly-in-string */
-
-  const onFinish = (values: any) => {
-    console.log(values);
-  };
 
   const handleClick = () => {
     console.log("addbookdata", addBookData);
