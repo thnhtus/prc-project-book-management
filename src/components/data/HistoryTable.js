@@ -8,17 +8,24 @@ import {
   Form,
   Input,
   Checkbox,
+  message,
   Modal,
 } from "antd";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import UpdateHistoryForm from "./UpdateHistoryForm";
-import { DeleteOutlined, EditTwoTone } from "@ant-design/icons";
+import {
+  DeleteOutlined,
+  EditTwoTone,
+  ExclamationCircleOutlined,
+} from "@ant-design/icons";
 //format date
 import Moment from "react-moment";
 import "moment-timezone";
 
 const HistoryTable = () => {
+  const { confirm } = Modal;
+
   //selected row data
   const [fields, setFields] = useState();
   //histories data
@@ -61,7 +68,56 @@ const HistoryTable = () => {
       });
   };
 
-  //set visible modal
+  //update return date
+  const updateReturnDate = (historyId) => {
+    // await axios
+    //   .post(
+    //     `https://bookmanagementapi.azurewebsites.net/api/histories/update-history`,
+    //     {
+    //       historyId: historyId,
+    //     }
+    //   )
+    //   .then((res) => {
+    //     if (res.status === 200) {
+    //       message.success("Update return date success!");
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     message.error("Error while updating return date!");
+    //     console.log(error);
+    //   });
+    console.log(historyId);
+  };
+
+  //show confirm update history
+  function showConfirm(record) {
+    confirm({
+      title: "Update Return Date",
+      icon: <ExclamationCircleOutlined />,
+      content: "Do you want to update return date for this history?",
+      async onOk() {
+        await axios
+          .post(
+            `https://bookmanagementapi.azurewebsites.net/api/histories/update-history`,
+            {
+              historyId: record.historyId,
+            }
+          )
+          .then((res) => {
+            if (res.status === 200) {
+              message.success("Update return date success!");
+            }
+          })
+          .catch((error) => {
+            message.error("Error while updating return date!");
+            console.log(error);
+          });
+      },
+      onCancel() {
+        console.log("Cancel");
+      },
+    });
+  }
 
   const onCreate = (values) => {
     console.log("Received values from form: ", values);
@@ -169,11 +225,7 @@ const HistoryTable = () => {
           <Button
             type="default"
             icon={<EditTwoTone />}
-            onClick={() => {
-              setFields(record);
-              setVisible(true);
-              console.log(fields);
-            }}
+            onClick={() => showConfirm(record)}
           >
             Update
           </Button>
@@ -185,14 +237,6 @@ const HistoryTable = () => {
   return (
     <>
       <Table dataSource={histories} columns={columns} bordered></Table>
-      <UpdateHistoryForm
-        visible={visible}
-        onCreate={onCreate}
-        onCancel={() => {
-          setVisible(false);
-        }}
-        fields={fields}
-      />
     </>
   );
 };

@@ -15,7 +15,7 @@ import { PlusOutlined, QuestionCircleOutlined } from "@ant-design/icons";
 import axios from "axios";
 import moment from "moment";
 
-const AddNewBookForm = ({ visible, onCancel }) => {
+const AddNewHistoryForm = ({ visible, onCancel }) => {
   //generate to store data from input
   const [addBookData, setAddBookData] = useState({
     categoryId: "",
@@ -35,46 +35,40 @@ const AddNewBookForm = ({ visible, onCancel }) => {
   const { Option } = Select;
 
   //category
-  const [categories, setCategories] = useState([]);
+  const [books, setBooks] = useState([]);
   //language
 
-  //store update data
-  const [updateBookData, setUpdateBookData] = useState();
-
-  const [languages, setLanguages] = useState([]);
+  const [customers, setCustomers] = useState([]);
 
   useEffect(() => {
-    getCategories();
-    getLanguages();
+    getBooks();
+    getCustomer();
   }, []);
 
-  //get categories from api
-  const getCategories = async () => {
+  //get books from api
+  const getBooks = async () => {
     await axios
-      .get(
-        `https://bookmanagementapi.azurewebsites.net/api/categories/search-categories`
-      )
+      .get(`https://bookmanagementapi2.azurewebsites.net/api/book/all/0`)
       .then((res) => {
-        setCategories(
+        setBooks(
           res.data.map((row) => ({
-            key: row.categoryId,
-            name: row.categoryName,
+            key: row.bookId,
+            bookId: row.bookId,
+            title: row.title,
           }))
         );
       })
       .then(() => {
-        console.log("DATA", categories);
+        console.log("DATA", books);
       });
   };
 
-  //get languages from api
-  const getLanguages = async () => {
+  //get customers from api
+  const getCustomer = async () => {
     await axios
-      .get(
-        `https://bookmanagementapi.azurewebsites.net/api/languages/search-languages`
-      )
+      .get(`https://bookmanagementapi2.azurewebsites.net/api/customer/all/0`)
       .then((res) => {
-        setLanguages(
+        setCustomers(
           res.data.map((row) => ({
             key: row.languageId,
             name: row.languageName,
@@ -82,7 +76,7 @@ const AddNewBookForm = ({ visible, onCancel }) => {
         );
       })
       .then(() => {
-        console.log("LANG", languages);
+        console.log("LANG", customers);
       });
   };
 
@@ -116,22 +110,6 @@ const AddNewBookForm = ({ visible, onCancel }) => {
       });
   };
 
-  // const onCreate = async (values) => {
-  //   setAddBookData({
-  //     categoryId: values.category,
-  //     title: values.bookTitle,
-  //     author: values.author,
-  //     price: values.price,
-  //     amount: values.amount,
-  //     printLength: values.,
-  //     releaseYear: 0,
-  //     publisher: "",
-  //     description: "",
-  //     languageId: "",
-  //   });
-
-  // };
-
   const layout = {
     labelCol: { span: 5 },
     wrapperCol: { span: 16 },
@@ -158,8 +136,8 @@ const AddNewBookForm = ({ visible, onCancel }) => {
     <Modal
       width={1000}
       visible={visible}
-      title="Add a new book"
-      okText="Add Book"
+      title="Add a history record"
+      okText="Add History"
       cancelText="Cancel"
       onCancel={onCancel}
       onOk={(e) => {
@@ -228,9 +206,9 @@ const AddNewBookForm = ({ visible, onCancel }) => {
           label="Category"
           rules={[{ required: true }]}
         >
-          <Select placeholder="Select Category..." style={{ width: "30%" }}>
-            {categories.map((category) => (
-              <Option key={category.key}>{category.name}</Option>
+          <Select placeholder="Select Book Title..." style={{ width: "30%" }}>
+            {books.map((book) => (
+              <Option key={book.key}>{book.name}</Option>
             ))}
           </Select>
         </Form.Item>
@@ -239,9 +217,9 @@ const AddNewBookForm = ({ visible, onCancel }) => {
           label="Language"
           rules={[{ required: true }]}
         >
-          <Select placeholder="Select Language..." style={{ width: "30%" }}>
-            {languages.map((language) => (
-              <Option key={language.key}>{language.name}</Option>
+          <Select placeholder="Select Customer..." style={{ width: "30%" }}>
+            {customers.map((customer) => (
+              <Option key={customer.key}>{customer.name}</Option>
             ))}
           </Select>
         </Form.Item>
@@ -257,4 +235,4 @@ const AddNewBookForm = ({ visible, onCancel }) => {
   );
 };
 
-export default AddNewBookForm;
+export default AddNewHistoryForm;
