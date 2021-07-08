@@ -1,4 +1,3 @@
-
 @import "./dist/scss/chartist.scss";
 
 $default-font-color: #2e2e30;
@@ -30,6 +29,7 @@ body {
 }
 
 .container {
+  margin-left: 15%;
   width: 85%;
   height: 100%;
 }
@@ -41,6 +41,8 @@ body {
   width: 15%;
   height: 100%;
   border-right: 1px solid $border-color;
+  position: fixed;
+  z-index: 1;
 
   .logo {
     margin-top: 30px;
@@ -170,8 +172,6 @@ body {
   border-bottom: 1px solid $border-color;
   height: 7%;
   display: flex;
-  
-  
 
   .nav-bar-link {
     width: 50%;
@@ -199,10 +199,10 @@ body {
 -------------------------------- */
 .main-content-container {
   width: 100%;
-  height: 88%;
+  min-height: 88%;
   padding: 40px;
   //background-color: $background-color;
-  
+
   .main-content {
     background-color: white;
     display: flex;
@@ -215,10 +215,10 @@ body {
       display: flex;
       flex-wrap: nowrap;
       justify-content: space-between;
-      
+
       /* ---------------------------------
                 OVERVIEW PAGE
-      ---------------------------------  */                            
+      ---------------------------------  */
       .total-statistics {
         display: inline-flex;
         div {
@@ -227,7 +227,7 @@ body {
           //border: 1px solid $border-color;
           background-color: #0468c5;
           margin-top: 7px;
-          border-radius: .25rem;
+          border-radius: 0.25rem;
         }
 
         p {
@@ -237,23 +237,21 @@ body {
         }
       }
 
-
       .main-content-total {
         width: auto;
         // display: flex;
         // align-items: center;
         // justify-content: center;
         border: 1px solid $border-color;
-        border-radius: .25rem;
+        border-radius: 0.25rem;
 
         .main-content-total-component {
-          width: 500px;
+          width: 450px;
           height: 100px;
           display: flex;
           justify-content: space-between;
-          padding-left: 25px;
-          
-          
+          padding-left: 35px;
+
           .main-content-total-component-number {
             width: 200px;
             height: 100%;
@@ -269,36 +267,62 @@ body {
               font-size: 15px;
               font-weight: 500;
               color: rgb(133, 133, 133);
-              margin:-5px 0 0 5px;
+              margin: -5px 0 0 5px;
             }
           }
 
           .main-content-total-component-chart {
             width: 200px;
             height: 100%;
-            border: 1px solid $border-color;
-            border-radius: .25rem;
+            //border: 1px solid $border-color;
+            border-radius: 0.25rem;
+            box-sizing: border-box;
+            overflow: hidden;
           }
         }
-  
-        
       }
 
       .main-content-chart {
+        display: flex;
+        justify-content: center;
+        margin-top: 50px;
+        padding-left: 60px;
         width: 100%;
         height: 500pxnpm install chartist --save;
+        .ct-series-a .ct-line {
+          stroke: blue;
+          stroke-width: 2px;
+        }
+        .ct-area {
+          fill: blue;
+        }
 
-        
+        .ct-series-a .ct-point {
+          stroke: blue;
+          stroke-width: 7px;
+        }
+        .chartist-tooltip {
+          opacity: 0;
+          position: absolute;
+          margin: 20px 0 0 10px;
+          background: rgba(0, 0, 0, 0.8);
+          color: #fff;
+          padding: 5px 10px;
+          border-radius: 4px;
+        }
+
+        .chartist-tooltip.tooltip-show {
+          opacity: 1;
+        }
       }
 
       /* -------------------------------
               BOOKSLIST PAGE
       ------------------------------- */
-      
+
       .row-btn-add {
         padding-right: 40px;
       }
-
 
       .books-list {
         display: inline-flex;
@@ -309,7 +333,7 @@ body {
           //border: 1px solid $border-color;
           background-color: #0468c5;
           margin-top: 7px;
-          border-radius: .25rem;
+          border-radius: 0.25rem;
         }
 
         p {
@@ -337,25 +361,68 @@ body {
       //     width: 80%;
       //   }
       // }
-
     }
-    
-
   }
 }
-
-
 
 //footer css
 .footer {
   width: 100%;
   height: 5%;
+  border-top: 1px solid $border-color;
   //border: 1px solid black;
   display: flex;
   justify-content: center;
   align-items: center;
-  
+
   p {
     margin-top: 10px;
+  }
+}
+
+/* ----------------------------
+      CHARTIST CSS
+---------------------------- */
+.totalBookChart {
+  .ct-series-a .ct-line {
+    stroke: blue;
+    stroke-width: 1px;
+  }
+  .ct-area {
+    fill: blue;
+  }
+
+  .ct-series-a .ct-point {
+    stroke: blue;
+    stroke-width: 1px;
+  }
+}
+
+.totalBookForRentChart {
+  .ct-series-a .ct-line {
+    stroke: rgb(47, 180, 47);
+    stroke-width: 1px;
+  }
+  .ct-area {
+    fill: rgb(47, 180, 47);
+  }
+
+  .ct-series-a .ct-point {
+    stroke: rgb(47, 180, 47);
+    stroke-width: 1px;
+  }
+}
+.totalBookRenterChart {
+  .ct-series-a .ct-line {
+    stroke: rgb(218, 51, 51);
+    stroke-width: 1px;
+  }
+  .ct-area {
+    fill: rgb(218, 51, 51);
+  }
+
+  .ct-series-a .ct-point {
+    stroke: rgb(218, 51, 51);
+    stroke-width: 1px;
   }
 }

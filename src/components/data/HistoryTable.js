@@ -8,17 +8,24 @@ import {
   Form,
   Input,
   Checkbox,
+  message,
   Modal,
 } from "antd";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import UpdateHistoryForm from "./UpdateHistoryForm";
-import { DeleteOutlined, EditTwoTone } from "@ant-design/icons";
+import {
+  DeleteOutlined,
+  EditTwoTone,
+  ExclamationCircleOutlined,
+} from "@ant-design/icons";
 //format date
 import Moment from "react-moment";
 import "moment-timezone";
 
 const HistoryTable = () => {
+  const { confirm } = Modal;
+
   //selected row data
   const [fields, setFields] = useState();
   //histories data
@@ -61,7 +68,56 @@ const HistoryTable = () => {
       });
   };
 
-  //set visible modal
+  //update return date
+  const updateReturnDate = (historyId) => {
+    // await axios
+    //   .post(
+    //     `https://bookmanagementapi.azurewebsites.net/api/histories/update-history`,
+    //     {
+    //       historyId: historyId,
+    //     }
+    //   )
+    //   .then((res) => {
+    //     if (res.status === 200) {
+    //       message.success("Update return date success!");
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     message.error("Error while updating return date!");
+    //     console.log(error);
+    //   });
+    console.log(historyId);
+  };
+
+  //show confirm update history
+  function showConfirm(record) {
+    confirm({
+      title: "Update Return Date",
+      icon: <ExclamationCircleOutlined />,
+      content: "Do you want to update return date for this history?",
+      async onOk() {
+        let id = record.historyId;
+        await axios
+          .post(
+            "https://bookmanagementapi.azurewebsites.net/api/histories/update-history?historyId="+id
+          )
+          .then((res) => {
+            if (res.status === 200) {
+              message.success("Update return date success!");
+              window.location.reload();
+            }
+          })
+          .catch((error) => {
+            message.error("Error while updating return date!");
+            console.log(error);
+          });
+      },
+
+      onCancel() {
+        console.log("Cancel");
+      },
+    });
+  }
 
   const onCreate = (values) => {
     console.log("Received values from form: ", values);
@@ -86,10 +142,24 @@ const HistoryTable = () => {
       title: "Book Title",
       dataIndex: "bookTitle",
       key: "bookTitle",
+      width: "15%",
       // sorter: {
       //   compare: (a, b) => a.username.length - b.username.length,
       //   multiple: 3,
       // },
+    },
+    {
+      title: "Manager Username",
+      dataIndex: "managerUsername",
+      key: "managerUsername",
+      width: "5%",
+      // sorter: {
+      //   compare: (a, b) => a.username.length - b.username.length,
+      //   multiple: 3,
+      // },
+      render: (text) => (
+        <span style={{ fontStyle: "italic", color: "#3377ff" }}>{text}</span>
+      ),
     },
     {
       title: "Customer Information",
@@ -129,7 +199,11 @@ const HistoryTable = () => {
       title: "Borrow Date",
       dataIndex: "borrowDate",
       key: "borrowDate",
-      render: (date) => <Moment format="YYYY-MM-DD">{date}</Moment>,
+      render: (date) => (
+        <Moment format="YYYY-MM-DD" style={{ fontWeight: 700 }}>
+          {date}
+        </Moment>
+      ),
     },
     {
       title: "Return Date",
@@ -138,7 +212,9 @@ const HistoryTable = () => {
       render: (date) => (
         <>
           {date !== null ? (
-            <Moment format="YYYY-MM-DD">{date}</Moment>
+            <Moment format="YYYY-MM-DD" style={{ fontWeight: 700 }}>
+              {date}
+            </Moment>
           ) : (
             <span style={{ color: "red", fontWeight: 700 }}>Null</span>
           )}
@@ -149,6 +225,7 @@ const HistoryTable = () => {
       title: "Status",
       dataIndex: "returnDate",
       key: "returnDate",
+
       render: (date) => (
         <>
           {date === null ? (
@@ -169,11 +246,7 @@ const HistoryTable = () => {
           <Button
             type="default"
             icon={<EditTwoTone />}
-            onClick={() => {
-              setFields(record);
-              setVisible(true);
-              console.log(fields);
-            }}
+            onClick={() => showConfirm(record)}
           >
             Update
           </Button>
@@ -185,14 +258,6 @@ const HistoryTable = () => {
   return (
     <>
       <Table dataSource={histories} columns={columns} bordered></Table>
-      <UpdateHistoryForm
-        visible={visible}
-        onCreate={onCreate}
-        onCancel={() => {
-          setVisible(false);
-        }}
-        fields={fields}
-      />
     </>
   );
 };

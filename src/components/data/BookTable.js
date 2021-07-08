@@ -24,6 +24,30 @@ const BookTable = () => {
   //visible modal
   const [visible, setVisible] = useState(false);
 
+  //category tag color
+  const antdColor = [
+    "red",
+    "volcano",
+    "orange",
+    "gold",
+    "yellow",
+    "lime",
+    "green",
+    "cyan",
+    "blue",
+    "geekblue",
+    "purple",
+    "magenta",
+  ];
+
+  //category list
+  const cateList = {};
+
+  const getRandomColor = () => {
+    const random = Math.floor(Math.random() * antdColor.length);
+    return `${antdColor[random]}`;
+  };
+
   useEffect(() => {
     getData();
   }, []);
@@ -38,18 +62,21 @@ const BookTable = () => {
           res.data.map((row) => ({
             rowIndex: i++,
             key: row.bookId,
+            bookId: row.bookId,
             title: row.title,
             category: row.categoryName,
             author: row.author,
             price: row.price,
             amount: row.amount,
+            printLength: row.printLength,
             releaseYear: row.releaseYear,
             publisher: row.publisher,
             language: row.languageName,
+            description: "",
           }))
         );
       })
-      .then(() => {
+      .then((res) => {
         console.log("Book", books);
       });
   };
@@ -65,18 +92,20 @@ const BookTable = () => {
       dataIndex: "rowIndex",
       key: "rowIndex",
       width: "1%",
+      render: (text) => <span style={{ fontWeight: 700 }}>{text}</span>,
     },
     {
       title: "Book Title",
       dataIndex: "title",
       key: "title",
-      width: "25%",
-      render: (text) => <a>{text}</a>,
+
+      render: (text) => <span style={{ color: "blue" }}>{text}</span>,
     },
     {
       title: "Author",
       dataIndex: "author",
       key: "author",
+
       // sorter: {
       //   compare: (a, b) => a.username.length - b.username.length,
       //   multiple: 3,
@@ -86,10 +115,44 @@ const BookTable = () => {
       title: "Categories",
       dataIndex: "category",
       key: "category",
-      render: (category) => (
+      // render: (category) => (
+      //   <>
+      //     {/* {category !== null && (
+      //       <Tag color="volcano">{category.toUpperCase()}</Tag>
+      //     )} */}
+      //     {() => {
+      //       let color = "";
+      //       if (category !== null) {
+      //         color = getRandomColor();
+      //       }
+      //       return <Tag color={color}>{category.toUpperCase()}</Tag>;
+      //     }}
+      //   </>
+      // ),
+      render: (category) => {
+        let color = "";
+        if (category !== null) {
+          color = getRandomColor();
+        }
+        return <Tag color={color}>{category.toUpperCase()}</Tag>;
+      },
+    },
+    {
+      title: "Release Year",
+      dataIndex: "releaseYear",
+      key: "releaseYear",
+      render: (releaseYear) => (
         <>
-          {category !== null && (
-            <Tag color="volcano">{category.toUpperCase()}</Tag>
+          {releaseYear === 0 ? (
+            <span style={{ color: "red", fontWeight: 700 }}>Unkown</span>
+          ) : (
+            <span>{releaseYear}</span>
+          )}
+          {releaseYear === "" && (
+            <span style={{ color: "red", fontWeight: 700 }}>Unkown</span>
+          )}
+          {releaseYear === null && (
+            <span style={{ color: "red", fontWeight: 700 }}>Unkown</span>
           )}
         </>
       ),
@@ -106,11 +169,33 @@ const BookTable = () => {
       render: (publisher) => (
         <>
           {publisher == null ? (
-            <span style={{ color: "red" }}>Unkown</span>
+            <span style={{ color: "red", fontWeight: 700 }}>Unkown</span>
           ) : (
             <span>{publisher}</span>
           )}
-          {publisher === "" && <span style={{ color: "red" }}>Unkown</span>}
+          {publisher === "" && (
+            <span style={{ color: "red", fontWeight: 700 }}>Unkown</span>
+          )}
+        </>
+      ),
+    },
+    {
+      title: "Print Length",
+      dataIndex: "printLength",
+      key: "printLength",
+      render: (printLength) => (
+        <>
+          {printLength === 0 ? (
+            <span style={{ color: "red", fontWeight: 700 }}>Unkown</span>
+          ) : (
+            <span>{printLength}</span>
+          )}
+          {printLength === "" && (
+            <span style={{ color: "red", fontWeight: 700 }}>Unkown</span>
+          )}
+          {printLength === null && (
+            <span style={{ color: "red", fontWeight: 700 }}>Unkown</span>
+          )}
         </>
       ),
     },
@@ -121,9 +206,10 @@ const BookTable = () => {
       render: (text) => <span>${text}</span>,
     },
     {
-      title: "Amounts",
+      title: "Amount",
       dataIndex: "amount",
       key: "amount",
+      align: "center",
       render: (text) => (
         <>
           {text === 0 ? (
@@ -144,12 +230,20 @@ const BookTable = () => {
             type="default"
             icon={<EditTwoTone />}
             onClick={() => {
+              setFields(record);
               setVisible(true);
             }}
           >
             Update
           </Button>
-          {/* <Button type="danger" icon={<DeleteOutlined />}></Button> */}
+          {/* <Button
+            onClick={() => {
+              const randomColor = getRandomColor();
+              console.log(randomColor);
+            }}
+          >
+            Click me!
+          </Button> */}
         </Space>
       ),
     },

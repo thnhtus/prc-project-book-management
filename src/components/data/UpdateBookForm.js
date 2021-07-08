@@ -29,9 +29,27 @@ const UpdateBookForm = ({ visible, onCancel, fields }) => {
   }, [fields]);
 
   //addbook to api
-  const onCreate = (values) => {
-    console.log("Values: ", values);
-    setAddBookData(values);
+  const onCreate = async (values) => {
+    await axios
+      .post(
+        `https://bookmanagementapi.azurewebsites.net/api/languages/update-book`,
+        {
+          bookId: values.bookId,
+          price: values.price,
+          amount: values.amount,
+          description: values.description,
+        }
+      )
+      .then((res) => {
+        if (res.status === 200) {
+          message.success("Update book success!");
+          window.location.reload();
+        }
+      })
+      .catch((error) => {
+        message.error("Error while updating book!");
+        console.log("Error: ", error.response);
+      });
   };
 
   const layout = {
@@ -59,30 +77,25 @@ const UpdateBookForm = ({ visible, onCancel, fields }) => {
   //show data
   const onClick = () => {
     console.log("Passed Data", fields);
-    console.log("AddBookData", addBookData);
-    console.log(
-      typeof moment(addBookData.borrowDateTime).format(
-        "yyyy'-'MM'-'dd'T'HH':'mm':'ss"
-      )
-    );
   };
 
   return (
     <Modal
       width={1000}
       visible={visible}
-      title="Update Request History"
-      okText="Update History"
+      title="Update Book Information"
+      okText="Update Book"
       cancelText="Cancel"
       onCancel={() => {
         onCancel();
         form.resetFields();
       }}
-      onOk={() => {
+      onOk={(e) => {
         form
           .validateFields()
           .then((values) => {
             form.resetFields();
+            e.preventDefault();
             onCreate(values);
           })
           .catch((info) => {
@@ -94,53 +107,30 @@ const UpdateBookForm = ({ visible, onCancel, fields }) => {
       <Form
         form={form}
         {...layout}
-        name="add-new-book-form"
+        name="update-book-form"
         //onFinish={onFinish}
         validateMessages={validateMessages}
         initialValues={fields}
       >
-        <Form.Item
-          name="historyId"
-          label="History Id"
-          rules={[{ required: true }]}
-        >
-          <Input style={{ width: "50%" }} />
-        </Form.Item>
         <Form.Item name="bookId" label="Book Id" rules={[{ required: true }]}>
-          <Input style={{ width: "50%" }} />
+          <Input style={{ width: "50%" }} disabled />
         </Form.Item>
         <Form.Item
-          name="bookTitle"
-          label="Book Title"
-          rules={[{ required: true }]}
+          name="price"
+          label="Price"
+          rules={[{ type: "number", min: 0, max: 99999 }]}
         >
-          <Input />
+          <InputNumber />
         </Form.Item>
         <Form.Item
-          name="customerId"
-          label="Customer Id"
-          rules={[{ required: true }]}
+          name="amount"
+          label="Amount"
+          rules={[{ type: "number", min: 0, max: 99999 }]}
         >
-          <Input style={{ width: "50%" }} />
+          <InputNumber />
         </Form.Item>
-        <Form.Item name="email" label="Email" rules={[{ type: "email" }]}>
-          <Input style={{ width: "45%" }} />
-        </Form.Item>
-        <Form.Item name="phone" label="Phone" rules={[{ required: true }]}>
-          <Input style={{ width: "45%" }} />
-        </Form.Item>
-        <Form.Item
-          name="managerUsername"
-          label="Manager Username"
-          rules={[{ required: true }]}
-        >
-          <Input style={{ width: "45%" }} />
-        </Form.Item>
-        <Form.Item name="borrowDateTime" label="Borrow Date">
-          <DatePicker picker="date" />
-        </Form.Item>
-        <Form.Item name="returnDateTime" label="Return Date">
-          <DatePicker picker="date" />
+        <Form.Item name="description" label="Description">
+          <Input.TextArea />
         </Form.Item>
       </Form>
       <button onClick={onClick}>Click me!</button>

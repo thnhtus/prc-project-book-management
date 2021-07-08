@@ -13,7 +13,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { PlusOutlined, EditTwoTone } from "@ant-design/icons";
-import AddNewBookForm from "./AddNewBookForm";
+import AddNewHistoryForm from "./AddNewHistoryForm";
 import HistoryTable from "./data/HistoryTable";
 
 const RequestHistoryPage = () => {
@@ -67,7 +67,7 @@ const RequestHistoryPage = () => {
             >
               Add New History
             </Button>
-            <AddNewBookForm
+            <AddNewHistoryForm
               visible={visible}
               onCreate={onCreate}
               onCancel={() => {

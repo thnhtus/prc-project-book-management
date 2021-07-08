@@ -17,20 +17,18 @@ import moment from "moment";
 
 const AddNewBookForm = ({ visible, onCancel }) => {
   //generate to store data from input
-  const addBookData = [
-    {
-      categoryId: "",
-      title: "",
-      author: "",
-      price: 0,
-      amount: 0,
-      printLength: 0,
-      releaseYear: 0,
-      publisher: "",
-      description: "",
-      languageId: "",
-    },
-  ];
+  const [addBookData, setAddBookData] = useState({
+    categoryId: "",
+    title: "",
+    author: "",
+    price: 0,
+    amount: 0,
+    printLength: 0,
+    releaseYear: 0,
+    publisher: "",
+    description: "",
+    languageId: "",
+  });
 
   const [form] = Form.useForm();
 
@@ -89,10 +87,50 @@ const AddNewBookForm = ({ visible, onCancel }) => {
   };
 
   //addbook to api
-  const onCreate = (values) => {
-    setUpdateBookData(values);
-    console.log("Update Data", updateBookData);
+  const onCreate = async (values) => {
+    await axios
+      .put(
+        `https://bookmanagementapi.azurewebsites.net/api/languages/add-book`,
+        {
+          categoryId: values.category,
+          title: values.bookTitle,
+          author: values.author,
+          price: values.price,
+          amount: values.amount,
+          printLength: values.printLength,
+          releaseYear: parseInt(moment(values.releaseYear).format("YYYY")),
+          publisher: values.publisher,
+          description: values.description,
+          languageId: values.language,
+        }
+      )
+      .then((res) => {
+        if (res.status === 200) {
+          message.success("Add book success!");
+          window.location.reload();
+        }
+      })
+      .catch((err) => {
+        message.error("Cannot add book!");
+        console.log(err.response);
+      });
   };
+
+  // const onCreate = async (values) => {
+  //   setAddBookData({
+  //     categoryId: values.category,
+  //     title: values.bookTitle,
+  //     author: values.author,
+  //     price: values.price,
+  //     amount: values.amount,
+  //     printLength: values.,
+  //     releaseYear: 0,
+  //     publisher: "",
+  //     description: "",
+  //     languageId: "",
+  //   });
+
+  // };
 
   const layout = {
     labelCol: { span: 5 },
@@ -112,12 +150,8 @@ const AddNewBookForm = ({ visible, onCancel }) => {
   };
   /* eslint-enable no-template-curly-in-string */
 
-  const onFinish = (values: any) => {
-    console.log(values);
-  };
-
   const handleClick = () => {
-    console.log(moment(updateBookData.releaseYear).format("YYYY"));
+    console.log("addbookdata", addBookData);
   };
 
   return (
@@ -128,16 +162,12 @@ const AddNewBookForm = ({ visible, onCancel }) => {
       okText="Add Book"
       cancelText="Cancel"
       onCancel={onCancel}
-      onOk={() => {
-        form
-          .validateFields()
-          .then((values) => {
-            //form.resetFields();
-            onCreate(values);
-          })
-          .catch((info) => {
-            console.log("Validate failed", info);
-          });
+      onOk={(e) => {
+        form.validateFields().then((values) => {
+          form.resetFields();
+          e.preventDefault();
+          onCreate(values);
+        });
       }}
     >
       <Form
@@ -146,6 +176,18 @@ const AddNewBookForm = ({ visible, onCancel }) => {
         name="add-new-book-form"
         //onFinish={onFinish}
         validateMessages={validateMessages}
+        initialValues={{
+          categoryId: "",
+          title: "",
+          author: "",
+          price: 0,
+          amount: 0,
+          printLength: 0,
+          releaseYear: 0,
+          publisher: "",
+          description: "",
+          languageId: "",
+        }}
       >
         <Form.Item
           name="bookTitle"
@@ -167,6 +209,13 @@ const AddNewBookForm = ({ visible, onCancel }) => {
         <Form.Item
           name="amount"
           label="Amount"
+          rules={[{ type: "number", min: 0, max: 99999 }]}
+        >
+          <InputNumber />
+        </Form.Item>
+        <Form.Item
+          name="printLength"
+          label="Print Length"
           rules={[{ type: "number", min: 0, max: 99999 }]}
         >
           <InputNumber />

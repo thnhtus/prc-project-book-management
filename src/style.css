@@ -734,6 +734,7 @@ body {
 }
 
 .container {
+  margin-left: 15%;
   width: 85%;
   height: 100%;
 }
@@ -745,6 +746,8 @@ body {
   width: 15%;
   height: 100%;
   border-right: 1px solid #d5d8ec;
+  position: fixed;
+  z-index: 1;
 }
 .side-nav .logo {
   margin-top: 30px;
@@ -878,7 +881,7 @@ body {
 -------------------------------- */
 .main-content-container {
   width: 100%;
-  height: 88%;
+  min-height: 88%;
   padding: 40px;
 }
 .main-content-container .main-content {
@@ -922,11 +925,11 @@ body {
   border-radius: 0.25rem;
 }
 .main-content-container .main-content .main-content-row .main-content-total .main-content-total-component {
-  width: 500px;
+  width: 450px;
   height: 100px;
   display: flex;
   justify-content: space-between;
-  padding-left: 25px;
+  padding-left: 35px;
 }
 .main-content-container .main-content .main-content-row .main-content-total .main-content-total-component .main-content-total-component-number {
   width: 200px;
@@ -946,12 +949,40 @@ body {
 .main-content-container .main-content .main-content-row .main-content-total .main-content-total-component .main-content-total-component-chart {
   width: 200px;
   height: 100%;
-  border: 1px solid #d5d8ec;
   border-radius: 0.25rem;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 .main-content-container .main-content .main-content-row .main-content-chart {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+  padding-left: 60px;
   width: 100%;
   height: 500pxnpm install chartist --save;
+}
+.main-content-container .main-content .main-content-row .main-content-chart .ct-series-a .ct-line {
+  stroke: blue;
+  stroke-width: 2px;
+}
+.main-content-container .main-content .main-content-row .main-content-chart .ct-area {
+  fill: blue;
+}
+.main-content-container .main-content .main-content-row .main-content-chart .ct-series-a .ct-point {
+  stroke: blue;
+  stroke-width: 7px;
+}
+.main-content-container .main-content .main-content-row .main-content-chart .chartist-tooltip {
+  opacity: 0;
+  position: absolute;
+  margin: 20px 0 0 10px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+.main-content-container .main-content .main-content-row .main-content-chart .chartist-tooltip.tooltip-show {
+  opacity: 1;
 }
 .main-content-container .main-content .main-content-row .row-btn-add {
   padding-right: 40px;
@@ -979,12 +1010,52 @@ body {
 .footer {
   width: 100%;
   height: 5%;
+  border-top: 1px solid #d5d8ec;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .footer p {
   margin-top: 10px;
+}
+
+/* ----------------------------
+      CHARTIST CSS
+---------------------------- */
+.totalBookChart .ct-series-a .ct-line {
+  stroke: blue;
+  stroke-width: 1px;
+}
+.totalBookChart .ct-area {
+  fill: blue;
+}
+.totalBookChart .ct-series-a .ct-point {
+  stroke: blue;
+  stroke-width: 1px;
+}
+
+.totalBookForRentChart .ct-series-a .ct-line {
+  stroke: #2fb42f;
+  stroke-width: 1px;
+}
+.totalBookForRentChart .ct-area {
+  fill: #2fb42f;
+}
+.totalBookForRentChart .ct-series-a .ct-point {
+  stroke: #2fb42f;
+  stroke-width: 1px;
+}
+
+.totalBookRenterChart .ct-series-a .ct-line {
+  stroke: #da3333;
+  stroke-width: 1px;
+}
+.totalBookRenterChart .ct-area {
+  fill: #da3333;
+}
+.totalBookRenterChart .ct-series-a .ct-point {
+  stroke: #da3333;
+  stroke-width: 1px;
 }
 
 /*# sourceMappingURL=style.css.map */
