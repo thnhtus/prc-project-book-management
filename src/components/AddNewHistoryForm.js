@@ -70,8 +70,9 @@ const AddNewHistoryForm = ({ visible, onCancel }) => {
       .then((res) => {
         setCustomers(
           res.data.map((row) => ({
-            key: row.languageId,
-            name: row.languageName,
+            key: row.customerId,
+            customerId: row.customerId,
+            email: row.email,
           }))
         );
       })
@@ -80,32 +81,25 @@ const AddNewHistoryForm = ({ visible, onCancel }) => {
       });
   };
 
-  //addbook to api
+  //add history to api
   const onCreate = async (values) => {
     await axios
       .put(
-        `https://bookmanagementapi.azurewebsites.net/api/languages/add-book`,
+        `https://bookmanagementapi.azurewebsites.net/api/histories/add-history`,
         {
-          categoryId: values.category,
-          title: values.bookTitle,
-          author: values.author,
-          price: values.price,
-          amount: values.amount,
-          printLength: values.printLength,
-          releaseYear: parseInt(moment(values.releaseYear).format("YYYY")),
-          publisher: values.publisher,
-          description: values.description,
-          languageId: values.language,
+          bookId: values.bookId,
+          customerId: values.customerId,
+          managerUsername: values.managerUsername,
         }
       )
       .then((res) => {
         if (res.status === 200) {
-          message.success("Add book success!");
+          message.success("Add history success!");
           window.location.reload();
         }
       })
       .catch((err) => {
-        message.error("Cannot add book!");
+        message.error("Error while adding new history!");
         console.log(err.response);
       });
   };
@@ -156,78 +150,34 @@ const AddNewHistoryForm = ({ visible, onCancel }) => {
         validateMessages={validateMessages}
         initialValues={{
           categoryId: "",
-          title: "",
-          author: "",
-          price: 0,
-          amount: 0,
-          printLength: 0,
-          releaseYear: 0,
-          publisher: "",
-          description: "",
-          languageId: "",
+          customerId: "",
+          mamagerUsername: "",
         }}
       >
         <Form.Item
-          name="bookTitle"
+          name="bookId"
           label="Book Title"
           rules={[{ required: true }]}
         >
-          <Input />
-        </Form.Item>
-        <Form.Item name="author" label="Author" rules={[{ required: true }]}>
-          <Input style={{ width: "50%" }} />
-        </Form.Item>
-        <Form.Item
-          name="price"
-          label="Price"
-          rules={[{ type: "number", min: 0, max: 99999 }]}
-        >
-          <InputNumber />
-        </Form.Item>
-        <Form.Item
-          name="amount"
-          label="Amount"
-          rules={[{ type: "number", min: 0, max: 99999 }]}
-        >
-          <InputNumber />
-        </Form.Item>
-        <Form.Item
-          name="printLength"
-          label="Print Length"
-          rules={[{ type: "number", min: 0, max: 99999 }]}
-        >
-          <InputNumber />
-        </Form.Item>
-        <Form.Item name="releaseYear" label="Release Year">
-          <DatePicker picker="year" mode="year" />
-        </Form.Item>
-        <Form.Item
-          name="category"
-          label="Category"
-          rules={[{ required: true }]}
-        >
-          <Select placeholder="Select Book Title..." style={{ width: "30%" }}>
+          <Select placeholder="Select Book Title..." style={{ width: "70%" }}>
             {books.map((book) => (
-              <Option key={book.key}>{book.name}</Option>
+              <Option key={book.key}>{book.title}</Option>
             ))}
           </Select>
         </Form.Item>
         <Form.Item
-          name="language"
-          label="Language"
+          name="customerId"
+          label="Customer Email"
           rules={[{ required: true }]}
         >
-          <Select placeholder="Select Customer..." style={{ width: "30%" }}>
+          <Select placeholder="Select Customer..." style={{ width: "50%" }}>
             {customers.map((customer) => (
-              <Option key={customer.key}>{customer.name}</Option>
+              <Option key={customer.key}>{customer.email}</Option>
             ))}
           </Select>
         </Form.Item>
-        <Form.Item name="publisher" label="Publisher">
+        <Form.Item name="managerUsername" label="Manger User">
           <Input style={{ width: "40%" }} />
-        </Form.Item>
-        <Form.Item name="description" label="Description">
-          <Input.TextArea />
         </Form.Item>
       </Form>
       <button onClick={handleClick}>Click me!</button>

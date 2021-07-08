@@ -96,16 +96,15 @@ const HistoryTable = () => {
       icon: <ExclamationCircleOutlined />,
       content: "Do you want to update return date for this history?",
       async onOk() {
+        let id = record.historyId;
         await axios
           .post(
-            `https://bookmanagementapi.azurewebsites.net/api/histories/update-history`,
-            {
-              historyId: record.historyId,
-            }
+            "https://bookmanagementapi.azurewebsites.net/api/histories/update-history?historyId="+id
           )
           .then((res) => {
             if (res.status === 200) {
               message.success("Update return date success!");
+              window.location.reload();
             }
           })
           .catch((error) => {
@@ -113,6 +112,7 @@ const HistoryTable = () => {
             console.log(error);
           });
       },
+
       onCancel() {
         console.log("Cancel");
       },
@@ -142,10 +142,24 @@ const HistoryTable = () => {
       title: "Book Title",
       dataIndex: "bookTitle",
       key: "bookTitle",
+      width: "15%",
       // sorter: {
       //   compare: (a, b) => a.username.length - b.username.length,
       //   multiple: 3,
       // },
+    },
+    {
+      title: "Manager Username",
+      dataIndex: "managerUsername",
+      key: "managerUsername",
+      width: "5%",
+      // sorter: {
+      //   compare: (a, b) => a.username.length - b.username.length,
+      //   multiple: 3,
+      // },
+      render: (text) => (
+        <span style={{ fontStyle: "italic", color: "#3377ff" }}>{text}</span>
+      ),
     },
     {
       title: "Customer Information",
@@ -185,7 +199,11 @@ const HistoryTable = () => {
       title: "Borrow Date",
       dataIndex: "borrowDate",
       key: "borrowDate",
-      render: (date) => <Moment format="YYYY-MM-DD">{date}</Moment>,
+      render: (date) => (
+        <Moment format="YYYY-MM-DD" style={{ fontWeight: 700 }}>
+          {date}
+        </Moment>
+      ),
     },
     {
       title: "Return Date",
@@ -194,7 +212,9 @@ const HistoryTable = () => {
       render: (date) => (
         <>
           {date !== null ? (
-            <Moment format="YYYY-MM-DD">{date}</Moment>
+            <Moment format="YYYY-MM-DD" style={{ fontWeight: 700 }}>
+              {date}
+            </Moment>
           ) : (
             <span style={{ color: "red", fontWeight: 700 }}>Null</span>
           )}
@@ -205,6 +225,7 @@ const HistoryTable = () => {
       title: "Status",
       dataIndex: "returnDate",
       key: "returnDate",
+
       render: (date) => (
         <>
           {date === null ? (
