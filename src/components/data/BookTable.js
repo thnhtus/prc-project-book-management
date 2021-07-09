@@ -11,7 +11,11 @@ import {
 } from "antd";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { DeleteOutlined, EditTwoTone } from "@ant-design/icons";
+import {
+  DeleteOutlined,
+  EditTwoTone,
+  LoadingOutlined,
+} from "@ant-design/icons";
 import UpdateBookForm from "./UpdateBookForm";
 
 const BookTable = () => {
@@ -21,8 +25,17 @@ const BookTable = () => {
   //selected record data
   const [fields, setFields] = useState();
 
+  //category list
+  const [categories, setCategories] = useState([]);
+
+  //language list
+  const [languages, setLanguages] = useState([]);
+
   //visible modal
   const [visible, setVisible] = useState(false);
+
+  //table loading
+  const [bookTableLoading, setBookTableLoading] = useState(true);
 
   //category tag color
   const antdColor = [
@@ -40,9 +53,6 @@ const BookTable = () => {
     "magenta",
   ];
 
-  //category list
-  const cateList = {};
-
   const getRandomColor = () => {
     const random = Math.floor(Math.random() * antdColor.length);
     return `${antdColor[random]}`;
@@ -50,8 +60,11 @@ const BookTable = () => {
 
   useEffect(() => {
     getData();
+    getCategories();
+    getLanguages();
   }, []);
 
+  //get books form api
   const getData = async () => {
     await axios
       .get(`https://bookmanagementapi.azurewebsites.net/api/books/search-books`)
@@ -77,7 +90,42 @@ const BookTable = () => {
         );
       })
       .then((res) => {
+        setBookTableLoading(false);
         console.log("Book", books);
+      });
+  };
+
+  //get category from api
+  const getCategories = async () => {
+    await axios
+      .get(`https://bookmanagementapi2.azurewebsites.net/api/category/all/0/0`)
+      .then((res) => {
+        setCategories(
+          res.data.map((row) => ({
+            categoryId: row.categoryId,
+            categoryName: row.categoryName,
+          }))
+        );
+      })
+      .then((res) => {
+        console.log("Cate", categories);
+      });
+  };
+
+  //get languages from api
+  const getLanguages = async () => {
+    await axios
+      .get(`https://bookmanagementapi2.azurewebsites.net/api/language/all/0/0`)
+      .then((res) => {
+        setLanguages(
+          res.data.map((row) => ({
+            languageId: row.languageId,
+            languageName: row.languageName,
+          }))
+        );
+      })
+      .then((res) => {
+        console.log("Lang", languages);
       });
   };
 
@@ -112,9 +160,14 @@ const BookTable = () => {
       // },
     },
     {
-      title: "Categories",
+      title: "Category",
       dataIndex: "category",
       key: "category",
+      filters: categories.map((category) => ({
+        text: category.categoryName,
+        value: category.categoryName,
+      })),
+
       // render: (category) => (
       //   <>
       //     {/* {category !== null && (
@@ -129,6 +182,7 @@ const BookTable = () => {
       //     }}
       //   </>
       // ),
+      onFilter: (value, record) => record.category.indexOf(value) === 0,
       render: (category) => {
         let color = "";
         if (category !== null) {
@@ -141,6 +195,7 @@ const BookTable = () => {
       title: "Release Year",
       dataIndex: "releaseYear",
       key: "releaseYear",
+      sorter: (a, b) => a.releaseYear - b.releaseYear,
       render: (releaseYear) => (
         <>
           {releaseYear === 0 ? (
@@ -161,6 +216,11 @@ const BookTable = () => {
       title: "Languages",
       dataIndex: "language",
       key: "language",
+      filters: languages.map((language) => ({
+        text: language.languageName,
+        value: language.languageName,
+      })),
+      onFilter: (value, record) => record.language.indexOf(value) === 0,
     },
     {
       title: "Publisher",
@@ -183,6 +243,7 @@ const BookTable = () => {
       title: "Print Length",
       dataIndex: "printLength",
       key: "printLength",
+      sorter: (a, b) => a.printLength - b.printLength,
       render: (printLength) => (
         <>
           {printLength === 0 ? (
@@ -203,6 +264,7 @@ const BookTable = () => {
       title: "Price",
       dataIndex: "price",
       key: "price",
+      sorter: (a, b) => a.price - b.price,
       render: (text) => <span>${text}</span>,
     },
     {
@@ -210,6 +272,7 @@ const BookTable = () => {
       dataIndex: "amount",
       key: "amount",
       align: "center",
+      sorter: (a, b) => a.amount - b.amount,
       render: (text) => (
         <>
           {text === 0 ? (
@@ -251,7 +314,12 @@ const BookTable = () => {
 
   return (
     <>
-      <Table dataSource={books} columns={columns} bordered></Table>
+      <Table
+        dataSource={books}
+        columns={columns}
+        bordered
+        loading={{ indicator: <LoadingOutlined />, spinning: bookTableLoading }}
+      ></Table>
       <UpdateBookForm
         visible={visible}
         onCreate={onCreate}

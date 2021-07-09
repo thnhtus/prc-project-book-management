@@ -7,7 +7,6 @@ import BookListsPage from "./components/BookLists";
 import RequestHistoryPage from "./components/RequestHistoryPage";
 import FooterPage from "./components/FooterPage";
 
-
 function App() {
   return (
     <Router>
@@ -15,16 +14,15 @@ function App() {
       <div className="container">
         <NavBar />
         <Switch>
-          <Route exact path="/">
-            <HomePage />
+          <Route exact path="/" component={HomePage}>
+            {/* <HomePage /> */}
           </Route>
-          <Route path="/bookLists">
-            <BookListsPage />
+          <Route path="/bookLists" component={BookListsPage}>
+            {/* <BookListsPage /> */}
           </Route>
-          <Route path="/requestsHistory">
-            <RequestHistoryPage />
+          <Route path="/requestsHistory" component={RequestHistoryPage}>
+            {/* <RequestHistoryPage /> */}
           </Route>
-          
         </Switch>
         <FooterPage />
       </div>

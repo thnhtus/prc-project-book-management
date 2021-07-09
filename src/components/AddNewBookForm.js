@@ -116,21 +116,6 @@ const AddNewBookForm = ({ visible, onCancel }) => {
       });
   };
 
-  // const onCreate = async (values) => {
-  //   setAddBookData({
-  //     categoryId: values.category,
-  //     title: values.bookTitle,
-  //     author: values.author,
-  //     price: values.price,
-  //     amount: values.amount,
-  //     printLength: values.,
-  //     releaseYear: 0,
-  //     publisher: "",
-  //     description: "",
-  //     languageId: "",
-  //   });
-
-  // };
 
   const layout = {
     labelCol: { span: 5 },
