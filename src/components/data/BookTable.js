@@ -1,21 +1,13 @@
 import React from "react";
-import {
-  Table,
-  Divider,
-  Tag,
-  Button,
-  Space,
-  Form,
-  Input,
-  Checkbox,
-} from "antd";
+import { Table, Tag, Button, Space, Input } from "antd";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import {
-  DeleteOutlined,
   EditTwoTone,
   LoadingOutlined,
+  SearchOutlined,
 } from "@ant-design/icons";
+import Highlighter from "react-highlight-words";
 import UpdateBookForm from "./UpdateBookForm";
 
 const BookTable = () => {
@@ -52,6 +44,10 @@ const BookTable = () => {
     "purple",
     "magenta",
   ];
+
+  //search text
+  const [searchText, setSearchText] = useState("");
+  const [searchedColumn, setSearchedColumn] = useState("");
 
   const getRandomColor = () => {
     const random = Math.floor(Math.random() * antdColor.length);
@@ -134,6 +130,87 @@ const BookTable = () => {
     setVisible(false);
   };
 
+  const getColumnSearchProps = (dataIndex) => ({
+    filterDropdown: ({
+      setSelectedKeys,
+      selectedKeys,
+      confirm,
+      clearFilters,
+    }) => (
+      <div style={{ padding: 8 }}>
+        <Input
+          // ref={(node) => {
+          //   this.searchInput = node;
+          // }}
+          placeholder={`Search ${dataIndex}`}
+          value={selectedKeys[0]}
+          onChange={(e) =>
+            setSelectedKeys(e.target.value ? [e.target.value] : [])
+          }
+          onPressEnter={() =>
+            this.handleSearch(selectedKeys, confirm, dataIndex)
+          }
+          style={{ marginBottom: 8, display: "block" }}
+        />
+        <Space>
+          <Button
+            type="primary"
+            onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
+            icon={<SearchOutlined />}
+            size="small"
+            style={{ width: 90 }}
+          >
+            Search
+          </Button>
+          <Button
+            onClick={() => handleReset(clearFilters)}
+            size="small"
+            style={{ width: 90 }}
+          >
+            Reset
+          </Button>
+        </Space>
+      </div>
+    ),
+    filterIcon: (filtered) => (
+      <SearchOutlined style={{ color: filtered ? "#1890ff" : undefined }} />
+    ),
+    onFilter: (value, record) =>
+      record[dataIndex]
+        ? record[dataIndex]
+            .toString()
+            .toLowerCase()
+            .includes(value.toLowerCase())
+        : "",
+    // onFilterDropdownVisibleChange: (visible) => {
+    //   if (visible) {
+    //     setTimeout(() => this.searchInput.select(), 100);
+    //   }
+    // },
+    render: (text) =>
+      searchedColumn === dataIndex ? (
+        <Highlighter
+          highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
+          searchWords={[searchText]}
+          autoEscape
+          textToHighlight={text ? text.toString() : ""}
+        />
+      ) : (
+        text
+      ),
+  });
+
+  const handleSearch = (selectedKeys, confirm, dataIndex) => {
+    confirm();
+    setSearchText(selectedKeys[0]);
+    setSearchedColumn(dataIndex);
+  };
+
+  const handleReset = (clearFilters) => {
+    clearFilters();
+    setSearchText("");
+  };
+
   const columns = [
     {
       title: "",
@@ -146,6 +223,7 @@ const BookTable = () => {
       title: "Book Title",
       dataIndex: "title",
       key: "title",
+      ...getColumnSearchProps("title"),
 
       render: (text) => <span style={{ color: "blue" }}>{text}</span>,
     },
@@ -153,11 +231,7 @@ const BookTable = () => {
       title: "Author",
       dataIndex: "author",
       key: "author",
-
-      // sorter: {
-      //   compare: (a, b) => a.username.length - b.username.length,
-      //   multiple: 3,
-      // },
+      ...getColumnSearchProps("author"),
     },
     {
       title: "Category",
@@ -226,6 +300,7 @@ const BookTable = () => {
       title: "Publisher",
       dataIndex: "publisher",
       key: "publisher",
+      ...getColumnSearchProps("publisher"),
       render: (publisher) => (
         <>
           {publisher == null ? (

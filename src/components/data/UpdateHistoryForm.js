@@ -1,18 +1,7 @@
-import {
-  Input,
-  Button,
-  Form,
-  InputNumber,
-  Select,
-  Popconfirm,
-  message,
-  Modal,
-  DatePicker,
-} from "antd";
+import { Input, Form, Modal, DatePicker } from "antd";
 import React from "react";
 import { useState, useEffect } from "react";
-import { PlusOutlined, QuestionCircleOutlined } from "@ant-design/icons";
-import axios from "axios";
+
 import moment from "moment";
 
 const UpdateHistoryForm = ({ visible, onCancel, fields }) => {
@@ -26,6 +15,7 @@ const UpdateHistoryForm = ({ visible, onCancel, fields }) => {
 
   useEffect(() => {
     form.resetFields();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fields]);
 
   //addbook to api
@@ -51,10 +41,6 @@ const UpdateHistoryForm = ({ visible, onCancel, fields }) => {
     },
   };
   /* eslint-enable no-template-curly-in-string */
-
-  const onFinish = (values: any) => {
-    console.log(values);
-  };
 
   //show data
   const onClick = () => {

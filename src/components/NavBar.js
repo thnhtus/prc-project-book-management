@@ -17,7 +17,7 @@ const NavBar = () => {
     <div className="nav-bar">
       <div className="nav-bar-link">
         <span>
-          <a href="#">Link</a>
+          {/* <a href="#">Link</a> */}
         </span>
       </div>
       <div className="nav-bar-date-time">

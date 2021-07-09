@@ -1,11 +1,8 @@
 import React from "react";
 import ChartistGraph from "react-chartist";
 import Chartist from "chartist";
-import ChartistTooltip from "chartist-plugin-tooltips-updated";
-
+// import ctPointLabels from "chartist-plugin-pointlabels";
 const TotalChart = () => {
-  
-
   var data = {
     labels: [
       "Jan",
@@ -37,6 +34,14 @@ const TotalChart = () => {
         { meta: "Dec", value: 10 },
       ],
     ],
+    // plugins: [
+    //   ctPointLabels({
+    //     textAnchor: "middle",
+    //     labelInterpolationFnc: function (value) {
+    //       return "$" + value.toFixed(2);
+    //     },
+    //   }),
+    // ],
   };
 
   var options = {
@@ -50,7 +55,10 @@ const TotalChart = () => {
       showGrid: true,
     },
     axisY: {
-      showLabel: false,
+      labelInterpolationFnc: function (value, index) {
+        return index % 2 === 0 ? value.toFixed(0) : null;
+      },
+      showLabel: true,
       showGrid: false,
     },
 
@@ -83,6 +91,7 @@ const TotalChart = () => {
 
   return (
     <div>
+      <h3>Total requests</h3>
       <ChartistGraph
         data={data}
         options={options}

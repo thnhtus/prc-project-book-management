@@ -959,7 +959,7 @@ body {
   margin-top: 50px;
   padding-left: 60px;
   width: 100%;
-  height: 500pxnpm install chartist --save;
+  height: 500px;
 }
 .main-content-container .main-content .main-content-row .main-content-chart .ct-series-a .ct-line {
   stroke: blue;
@@ -970,7 +970,8 @@ body {
 }
 .main-content-container .main-content .main-content-row .main-content-chart .ct-series-a .ct-point {
   stroke: blue;
-  stroke-width: 7px;
+  stroke-width: 1px;
+  transition: 0.5s ease-out;
 }
 .main-content-container .main-content .main-content-row .main-content-chart .chartist-tooltip {
   opacity: 0;
@@ -983,6 +984,10 @@ body {
 }
 .main-content-container .main-content .main-content-row .main-content-chart .chartist-tooltip.tooltip-show {
   opacity: 1;
+}
+.main-content-container .main-content .main-content-row .main-content-chart:hover .ct-series-a .ct-point {
+  stroke: blue;
+  stroke-width: 10px;
 }
 .main-content-container .main-content .main-content-row .row-btn-add {
   padding-right: 40px;
@@ -1032,6 +1037,12 @@ body {
 .totalBookChart .ct-series-a .ct-point {
   stroke: blue;
   stroke-width: 1px;
+  transition: 0.5s ease-out;
+}
+
+.totalBookChart:hover .ct-series-a .ct-point {
+  stroke: blue;
+  stroke-width: 5px;
 }
 
 .totalBookForRentChart .ct-series-a .ct-line {
@@ -1044,6 +1055,12 @@ body {
 .totalBookForRentChart .ct-series-a .ct-point {
   stroke: #2fb42f;
   stroke-width: 1px;
+  transition: 0.5s ease-out;
+}
+
+.totalBookForRentChart:hover .ct-series-a .ct-point {
+  stroke: #2fb42f;
+  stroke-width: 5px;
 }
 
 .totalBookRenterChart .ct-series-a .ct-line {
@@ -1056,6 +1073,12 @@ body {
 .totalBookRenterChart .ct-series-a .ct-point {
   stroke: #da3333;
   stroke-width: 1px;
+  transition: 0.5s ease-out;
+}
+
+.totalBookRenterChart:hover .ct-series-a .ct-point {
+  stroke: #da3333;
+  stroke-width: 5px;
 }
 
 /*# sourceMappingURL=style.css.map */
