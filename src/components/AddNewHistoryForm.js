@@ -170,13 +170,16 @@ const AddNewHistoryForm = ({ visible, onCancel }) => {
           label="Customer Email"
           rules={[{ required: true }]}
         >
-          <Select placeholder="Select Customer..." style={{ width: "50%" }}>
+          <Select
+            placeholder="Select Customer Email..."
+            style={{ width: "50%" }}
+          >
             {customers.map((customer) => (
               <Option key={customer.key}>{customer.email}</Option>
             ))}
           </Select>
         </Form.Item>
-        <Form.Item name="managerUsername" label="Manger User">
+        <Form.Item name="managerUsername" label="Manger Username">
           <Input style={{ width: "40%" }} />
         </Form.Item>
       </Form>

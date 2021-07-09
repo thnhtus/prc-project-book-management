@@ -18,10 +18,12 @@ import {
   DeleteOutlined,
   EditTwoTone,
   ExclamationCircleOutlined,
+  LoadingOutlined,
 } from "@ant-design/icons";
 //format date
 import Moment from "react-moment";
 import "moment-timezone";
+import moment from "moment";
 
 const HistoryTable = () => {
   const { confirm } = Modal;
@@ -33,6 +35,9 @@ const HistoryTable = () => {
 
   //visible modal
   const [visible, setVisible] = useState(false);
+
+  //table loading
+  const [bookTableLoading, setBookTableLoading] = useState(true);
 
   useEffect(() => {
     getData();
@@ -60,33 +65,14 @@ const HistoryTable = () => {
             managerUsername: row.managerUsername,
             borrowDate: row.borrowDate,
             returnDate: row.returnDate,
+            status: row.returnDate !== null ? "Returned" : "Not Return Yet",
           }))
         );
       })
       .then(() => {
+        setBookTableLoading(false);
         console.log("History", histories);
       });
-  };
-
-  //update return date
-  const updateReturnDate = (historyId) => {
-    // await axios
-    //   .post(
-    //     `https://bookmanagementapi.azurewebsites.net/api/histories/update-history`,
-    //     {
-    //       historyId: historyId,
-    //     }
-    //   )
-    //   .then((res) => {
-    //     if (res.status === 200) {
-    //       message.success("Update return date success!");
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     message.error("Error while updating return date!");
-    //     console.log(error);
-    //   });
-    console.log(historyId);
   };
 
   //show confirm update history
@@ -96,15 +82,19 @@ const HistoryTable = () => {
       icon: <ExclamationCircleOutlined />,
       content: "Do you want to update return date for this history?",
       async onOk() {
+        // bookTableLoading(true);
         let id = record.historyId;
         await axios
           .post(
-            "https://bookmanagementapi.azurewebsites.net/api/histories/update-history?historyId="+id
+            "https://bookmanagementapi.azurewebsites.net/api/histories/update-history?historyId=" +
+              id
           )
           .then((res) => {
             if (res.status === 200) {
               message.success("Update return date success!");
-              window.location.reload();
+              //window.location.reload();
+              setBookTableLoading(true);
+              getData();
             }
           })
           .catch((error) => {
@@ -135,32 +125,32 @@ const HistoryTable = () => {
       title: "History ID",
       dataIndex: "historyId",
       key: "historyId",
-      width: "20%",
+      width: "22%",
       render: (text) => <span style={{ fontWeight: 700 }}>{text}</span>,
     },
     {
       title: "Book Title",
       dataIndex: "bookTitle",
       key: "bookTitle",
-      width: "15%",
+      width: "17%",
       // sorter: {
       //   compare: (a, b) => a.username.length - b.username.length,
       //   multiple: 3,
       // },
     },
-    {
-      title: "Manager Username",
-      dataIndex: "managerUsername",
-      key: "managerUsername",
-      width: "5%",
-      // sorter: {
-      //   compare: (a, b) => a.username.length - b.username.length,
-      //   multiple: 3,
-      // },
-      render: (text) => (
-        <span style={{ fontStyle: "italic", color: "#3377ff" }}>{text}</span>
-      ),
-    },
+    // {
+    //   title: "Manager Username",
+    //   dataIndex: "managerUsername",
+    //   key: "managerUsername",
+    //   width: "5%",
+    //   // sorter: {
+    //   //   compare: (a, b) => a.username.length - b.username.length,
+    //   //   multiple: 3,
+    //   // },
+    //   render: (text) => (
+    //     <span style={{ fontStyle: "italic", color: "#3377ff" }}>{text}</span>
+    //   ),
+    // },
     {
       title: "Customer Information",
       children: [
@@ -199,6 +189,8 @@ const HistoryTable = () => {
       title: "Borrow Date",
       dataIndex: "borrowDate",
       key: "borrowDate",
+      sorter: (a, b) =>
+        moment(a.borrowDate).unix() - moment(b.borrowDate).unix(),
       render: (date) => (
         <Moment format="YYYY-MM-DD" style={{ fontWeight: 700 }}>
           {date}
@@ -209,6 +201,8 @@ const HistoryTable = () => {
       title: "Return Date",
       dataIndex: "returnDate",
       key: "returnDate",
+      sorter: (a, b) =>
+        moment(a.returnDate).unix() - moment(b.returnDate).unix(),
       render: (date) => (
         <>
           {date !== null ? (
@@ -223,15 +217,25 @@ const HistoryTable = () => {
     },
     {
       title: "Status",
-      dataIndex: "returnDate",
-      key: "returnDate",
-
-      render: (date) => (
+      dataIndex: "status",
+      key: "status",
+      filters: [
+        {
+          text: "Returned",
+          value: "Returned",
+        },
+        {
+          text: "Not Return Yet",
+          value: "Not Return Yet",
+        },
+      ],
+      onFilter: (value, record) => record.status.indexOf(value) === 0,
+      render: (text) => (
         <>
-          {date === null ? (
-            <Tag color="red">Not Returned Yet</Tag>
+          {text === "Not Return Yet" ? (
+            <Tag color="red">{text}</Tag>
           ) : (
-            <Tag color="green">Returned</Tag>
+            <Tag color="green">{text}</Tag>
           )}
         </>
       ),
@@ -257,7 +261,12 @@ const HistoryTable = () => {
 
   return (
     <>
-      <Table dataSource={histories} columns={columns} bordered></Table>
+      <Table
+        dataSource={histories}
+        columns={columns}
+        bordered
+        loading={{ indicator: <LoadingOutlined />, spinning: bookTableLoading }}
+      ></Table>
     </>
   );
 };
