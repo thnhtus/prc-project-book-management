@@ -73,7 +73,7 @@ const AddNewCustomerForm = ({ visible, onCancel }) => {
           phone: "",
         }}
       >
-        <Form.Item name="email" label="Email" rules={[{ required: true }]}>
+        <Form.Item name="email" label="Email" rules={[{ type: "email" }]}>
           <Input />
         </Form.Item>
         <Form.Item name="phone" label="Phone" rules={[{ required: true }]}>

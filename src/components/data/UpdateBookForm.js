@@ -69,7 +69,6 @@ const UpdateBookForm = ({ visible, onCancel, fields }) => {
           .validateFields()
           .then((values) => {
             form.resetFields();
-            e.preventDefault();
             onCreate(values);
           })
           .catch((info) => {
