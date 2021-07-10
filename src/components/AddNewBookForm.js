@@ -79,7 +79,7 @@ const AddNewBookForm = ({ visible, onCancel }) => {
           price: values.price,
           amount: values.amount,
           printLength: values.printLength,
-          releaseYear: parseInt(moment(values.releaseYear).format("YYYY")),
+          releaseYear: values.releaseYear !== 0 ? parseInt(moment(values.releaseYear).format("YYYY")) : 0,
           publisher: values.publisher,
           description: values.description,
           languageId: values.language,
