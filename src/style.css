@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,800;1,700;1,800&family=Roboto:wght@400;500&display=swap");
 .ct-label {
   fill: rgba(0, 0, 0, 0.4);
   color: rgba(0, 0, 0, 0.4);
@@ -734,8 +735,8 @@ body {
 }
 
 .container {
-  margin-left: 15%;
-  width: 85%;
+  margin-left: 280px;
+  width: auto;
   height: 100%;
 }
 
@@ -743,9 +744,10 @@ body {
       SIDE BAR
 ----------------------------------- */
 .side-nav {
-  width: 15%;
+  width: 280px;
   height: 100%;
   border-right: 1px solid #d5d8ec;
+  background-color: #fdfdfd;
   position: fixed;
   z-index: 1;
 }
@@ -762,7 +764,8 @@ body {
 .side-nav .user-infor {
   display: flex;
   height: 300px;
-  border: 1px solid #d5d8ec;
+  border-top: 1px solid #d5d8ec;
+  border-bottom: 1px solid #d5d8ec;
   align-items: center;
   flex-direction: column;
   margin-top: 40px;
@@ -783,7 +786,7 @@ body {
 }
 .side-nav .user-infor .user-name {
   width: 200px;
-  height: 50px;
+  height: 60px;
   text-align: center;
   margin-top: 20px;
   border: 1px solid #d5d8ec;
@@ -798,6 +801,7 @@ body {
   font-weight: 700;
 }
 .side-nav .user-infor .user-name .user-location {
+  padding-top: 5px;
   color: #5c5c61;
   font-size: 12px;
 }
@@ -989,6 +993,11 @@ body {
   stroke: blue;
   stroke-width: 10px;
 }
+.main-content-container .main-content .main-content-row .row-btn-add-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
 .main-content-container .main-content .main-content-row .row-btn-add {
   padding-right: 40px;
 }
@@ -1079,6 +1088,67 @@ body {
 .totalBookRenterChart:hover .ct-series-a .ct-point {
   stroke: #da3333;
   stroke-width: 5px;
+}
+
+/* -----------------------------
+    LOGIN PAGE
+----------------------------- */
+.login-container {
+  width: 100%;
+  height: 100%;
+  background-color: #ececec;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.login-container .inner {
+  border: 1px solid #d5d8ec;
+  width: 1200px;
+  height: 600px;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  border-radius: 0.5rem;
+}
+.login-container .inner img {
+  border-radius: 0.5rem;
+}
+.login-container .inner .inner-form {
+  width: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.login-container .inner .inner-form h1 {
+  color: rgba(0, 0, 0, 0.774);
+  font-family: "Open Sans", sans-serif;
+  font-family: "Roboto", sans-serif;
+  font-weight: bold;
+  font-size: 40px;
+}
+.login-container .inner .inner-form h1 span {
+  display: block;
+}
+.login-container .inner .inner-form .login-form {
+  width: 300px;
+  height: 300px;
+}
+.login-container .inner .inner-form .login-form p {
+  margin-bottom: 5px;
+}
+.login-container .inner .inner-form .login-form .submit-btn {
+  margin-top: 50px;
+}
+
+/* ---------------------
+    ACTIVE LINK
+--------------------- */
+.active-link {
+  font-weight: bold;
+}
+.active-link li {
+  background-color: #ececec;
 }
 
 /*# sourceMappingURL=style.css.map */

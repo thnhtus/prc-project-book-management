@@ -259,8 +259,28 @@ const BookTable = () => {
       onFilter: (value, record) => record.category.indexOf(value) === 0,
       render: (category) => {
         let color = "";
-        if (category !== null) {
-          color = getRandomColor();
+        switch (category) {
+          case "Politics & Government":
+            color = "gold";
+            break;
+          case "Arts & Photography":
+            color = "green";
+            break;
+          case "Children's Books":
+            color = "purple";
+            break;
+          case "Mystery":
+            color = "geekblue";
+            break;
+          case "Fantasy":
+            color = "volcano";
+            break;
+          case "Romance":
+            color = "magenta";
+            break;
+          default:
+            color = "blue";
+            break;
         }
         return <Tag color={color}>{category.toUpperCase()}</Tag>;
       },

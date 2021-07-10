@@ -1,4 +1,5 @@
 @import "./dist/scss/chartist.scss";
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,800;1,700;1,800&family=Roboto:wght@400;500&display=swap");
 
 $default-font-color: #2e2e30;
 $border-color: #d5d8ec;
@@ -29,8 +30,8 @@ body {
 }
 
 .container {
-  margin-left: 15%;
-  width: 85%;
+  margin-left: 280px;
+  width: auto;
   height: 100%;
 }
 
@@ -38,9 +39,10 @@ body {
       SIDE BAR
 ----------------------------------- */
 .side-nav {
-  width: 15%;
+  width: 280px;
   height: 100%;
   border-right: 1px solid $border-color;
+  background-color: #fdfdfd;
   position: fixed;
   z-index: 1;
 
@@ -58,7 +60,8 @@ body {
   .user-infor {
     display: flex;
     height: 300px;
-    border: 1px solid $border-color;
+    border-top: 1px solid $border-color;
+    border-bottom: 1px solid $border-color;
     // justify-content: center;
     align-items: center;
     flex-direction: column;
@@ -81,7 +84,7 @@ body {
 
     .user-name {
       width: 200px;
-      height: 50px;
+      height: 60px;
       text-align: center;
       margin-top: 20px;
       border: 1px solid $border-color;
@@ -95,6 +98,7 @@ body {
         font-weight: 700;
       }
       .user-location {
+        padding-top: 5px;
         color: #5c5c61;
         font-size: 12px;
       }
@@ -327,6 +331,11 @@ body {
       /* -------------------------------
               BOOKSLIST PAGE
       ------------------------------- */
+      .row-btn-add-container {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+      }
 
       .row-btn-add {
         padding-right: 40px;
@@ -434,7 +443,6 @@ body {
   .ct-series-a .ct-point {
     stroke: rgb(47, 180, 47);
     stroke-width: 5px;
-    
   }
 }
 
@@ -458,6 +466,82 @@ body {
   .ct-series-a .ct-point {
     stroke: rgb(218, 51, 51);
     stroke-width: 5px;
-    
+  }
+}
+
+/* -----------------------------
+    LOGIN PAGE
+----------------------------- */
+
+.login-container {
+  width: 100%;
+  height: 100%;
+  background-color: $background-color;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .inner {
+    border: 1px solid $border-color;
+    width: 1200px;
+    height: 600px;
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    border-radius: 0.5rem;
+
+    img {
+      border-radius: 0.5rem;
+    }
+
+    .inner-form {
+      width: 600px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+
+      h1 {
+        color: rgba(0, 0, 0, 0.774);
+        font-family: "Open Sans", sans-serif;
+        font-family: "Roboto", sans-serif;
+        font-weight: bold;
+        font-size: 40px;
+
+        span {
+          display: block;
+        }
+      }
+
+      .login-form {
+        width: 300px;
+        height: 300px;
+        p {
+          margin-bottom: 5px;
+        }
+
+        // .label-password {
+        //   p {
+        //     margin-top: 30px;
+        //   }
+        // }
+
+        .submit-btn {
+          // display: flex;
+          // justify-content: center;
+          margin-top: 50px;
+        }
+      }
+    }
+  }
+}
+
+/* ---------------------
+    ACTIVE LINK
+--------------------- */
+.active-link {
+  font-weight: bold;
+  li {
+    background-color: $background-color;
   }
 }
