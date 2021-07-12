@@ -71,7 +71,7 @@ const AddNewBookForm = ({ visible, onCancel }) => {
   const onCreate = async (values) => {
     await axios
       .put(
-        `https://bookmanagementapi.azurewebsites.net/api/languages/add-book`,
+        `http://bookmanagement-api.azurewebsites.net/api/books/search-books`,
         {
           categoryId: values.category,
           title: values.bookTitle,

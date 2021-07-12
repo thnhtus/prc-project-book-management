@@ -8,7 +8,7 @@ const LoginPage = ({ setToken }) => {
   //call login api
   const handleLogin = async (username, password) => {
     await axios
-      .post(`https://bookmanagementapi.azurewebsites.net/api/login`, {
+      .post(`http://bookmanagement-api.azurewebsites.net/api/login`, {
         username: `${username}`,
         password: `${password}`,
       })
