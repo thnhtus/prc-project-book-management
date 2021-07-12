@@ -1,35 +1,19 @@
 import {
   Input,
-  Button,
   Form,
   InputNumber,
   Select,
-  Popconfirm,
   message,
   Modal,
   DatePicker,
 } from "antd";
 import React from "react";
 import { useState, useEffect } from "react";
-import { PlusOutlined, QuestionCircleOutlined } from "@ant-design/icons";
+
 import axios from "axios";
 import moment from "moment";
 
 const AddNewBookForm = ({ visible, onCancel }) => {
-  //generate to store data from input
-  const [addBookData, setAddBookData] = useState({
-    categoryId: "",
-    title: "",
-    author: "",
-    price: 0,
-    amount: 0,
-    printLength: 0,
-    releaseYear: 0,
-    publisher: "",
-    description: "",
-    languageId: "",
-  });
-
   const [form] = Form.useForm();
 
   const { Option } = Select;
@@ -37,9 +21,6 @@ const AddNewBookForm = ({ visible, onCancel }) => {
   //category
   const [categories, setCategories] = useState([]);
   //language
-
-  //store update data
-  const [updateBookData, setUpdateBookData] = useState();
 
   const [languages, setLanguages] = useState([]);
 
@@ -90,7 +71,7 @@ const AddNewBookForm = ({ visible, onCancel }) => {
   const onCreate = async (values) => {
     await axios
       .put(
-        `https://bookmanagementapi.azurewebsites.net/api/languages/add-book`,
+        `http://bookmanagement-api.azurewebsites.net/api/books/search-books`,
         {
           categoryId: values.category,
           title: values.bookTitle,
@@ -98,7 +79,7 @@ const AddNewBookForm = ({ visible, onCancel }) => {
           price: values.price,
           amount: values.amount,
           printLength: values.printLength,
-          releaseYear: parseInt(moment(values.releaseYear).format("YYYY")),
+          releaseYear: values.releaseYear !== 0 ? parseInt(moment(values.releaseYear).format("YYYY")) : 0,
           publisher: values.publisher,
           description: values.description,
           languageId: values.language,
@@ -115,7 +96,6 @@ const AddNewBookForm = ({ visible, onCancel }) => {
         console.log(err.response);
       });
   };
-
 
   const layout = {
     labelCol: { span: 5 },
@@ -134,10 +114,6 @@ const AddNewBookForm = ({ visible, onCancel }) => {
     },
   };
   /* eslint-enable no-template-curly-in-string */
-
-  const handleClick = () => {
-    console.log("addbookdata", addBookData);
-  };
 
   return (
     <Modal
@@ -237,7 +213,6 @@ const AddNewBookForm = ({ visible, onCancel }) => {
           <Input.TextArea />
         </Form.Item>
       </Form>
-      <button onClick={handleClick}>Click me!</button>
     </Modal>
   );
 };

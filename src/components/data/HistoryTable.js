@@ -1,43 +1,31 @@
 import React from "react";
-import {
-  Table,
-  Divider,
-  Tag,
-  Button,
-  Space,
-  Form,
-  Input,
-  Checkbox,
-  message,
-  Modal,
-} from "antd";
+import { Table, Tag, Button, Space, Input, message, Modal } from "antd";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import UpdateHistoryForm from "./UpdateHistoryForm";
 import {
-  DeleteOutlined,
   EditTwoTone,
   ExclamationCircleOutlined,
   LoadingOutlined,
+  SearchOutlined,
 } from "@ant-design/icons";
 //format date
 import Moment from "react-moment";
 import "moment-timezone";
 import moment from "moment";
+import Highlighter from "react-highlight-words";
 
 const HistoryTable = () => {
   const { confirm } = Modal;
 
-  //selected row data
-  const [fields, setFields] = useState();
   //histories data
   const [histories, setHistories] = useState([]);
 
-  //visible modal
-  const [visible, setVisible] = useState(false);
-
   //table loading
   const [bookTableLoading, setBookTableLoading] = useState(true);
+
+  //search text
+  const [searchText, setSearchText] = useState("");
+  const [searchedColumn, setSearchedColumn] = useState("");
 
   useEffect(() => {
     getData();
@@ -109,11 +97,86 @@ const HistoryTable = () => {
     });
   }
 
-  const onCreate = (values) => {
-    console.log("Received values from form: ", values);
-    setVisible(false);
+  const getColumnSearchProps = (dataIndex) => ({
+    filterDropdown: ({
+      setSelectedKeys,
+      selectedKeys,
+      confirm,
+      clearFilters,
+    }) => (
+      <div style={{ padding: 8 }}>
+        <Input
+          // ref={(node) => {
+          //   this.searchInput = node;
+          // }}
+          placeholder={`Search ${dataIndex}`}
+          value={selectedKeys[0]}
+          onChange={(e) =>
+            setSelectedKeys(e.target.value ? [e.target.value] : [])
+          }
+          onPressEnter={() =>
+            this.handleSearch(selectedKeys, confirm, dataIndex)
+          }
+          style={{ marginBottom: 8, display: "block" }}
+        />
+        <Space>
+          <Button
+            type="primary"
+            onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
+            icon={<SearchOutlined />}
+            size="small"
+            style={{ width: 90 }}
+          >
+            Search
+          </Button>
+          <Button
+            onClick={() => handleReset(clearFilters)}
+            size="small"
+            style={{ width: 90 }}
+          >
+            Reset
+          </Button>
+        </Space>
+      </div>
+    ),
+    filterIcon: (filtered) => (
+      <SearchOutlined style={{ color: filtered ? "#1890ff" : undefined }} />
+    ),
+    onFilter: (value, record) =>
+      record[dataIndex]
+        ? record[dataIndex]
+            .toString()
+            .toLowerCase()
+            .includes(value.toLowerCase())
+        : "",
+    // onFilterDropdownVisibleChange: (visible) => {
+    //   if (visible) {
+    //     setTimeout(() => this.searchInput.select(), 100);
+    //   }
+    // },
+    render: (text) =>
+      searchedColumn === dataIndex ? (
+        <Highlighter
+          highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
+          searchWords={[searchText]}
+          autoEscape
+          textToHighlight={text ? text.toString() : ""}
+        />
+      ) : (
+        text
+      ),
+  });
+
+  const handleSearch = (selectedKeys, confirm, dataIndex) => {
+    confirm();
+    setSearchText(selectedKeys[0]);
+    setSearchedColumn(dataIndex);
   };
 
+  const handleReset = (clearFilters) => {
+    clearFilters();
+    setSearchText("");
+  };
   const columns = [
     {
       title: "",
@@ -126,6 +189,7 @@ const HistoryTable = () => {
       dataIndex: "historyId",
       key: "historyId",
       width: "22%",
+      ...getColumnSearchProps("historyId"),
       render: (text) => <span style={{ fontWeight: 700 }}>{text}</span>,
     },
     {
@@ -133,10 +197,7 @@ const HistoryTable = () => {
       dataIndex: "bookTitle",
       key: "bookTitle",
       width: "17%",
-      // sorter: {
-      //   compare: (a, b) => a.username.length - b.username.length,
-      //   multiple: 3,
-      // },
+      ...getColumnSearchProps("bookTitle"),
     },
     // {
     //   title: "Manager Username",
@@ -158,18 +219,13 @@ const HistoryTable = () => {
           title: "Email",
           dataIndex: "email",
           key: "email",
-          //   render: (category) => (
-          //     <>
-          //       {category !== null && (
-          //         <Tag color="volcano">{category.toUpperCase()}</Tag>
-          //       )}
-          //     </>
-          //   ),
+          ...getColumnSearchProps("email"),
         },
         {
           title: "Phone Number",
           dataIndex: "phone",
           key: "phone",
+          ...getColumnSearchProps("phone"),
           render: (phone) => (
             <>
               {phone == null ? (

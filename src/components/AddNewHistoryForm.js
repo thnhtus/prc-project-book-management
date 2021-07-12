@@ -1,35 +1,10 @@
-import {
-  Input,
-  Button,
-  Form,
-  InputNumber,
-  Select,
-  Popconfirm,
-  message,
-  Modal,
-  DatePicker,
-} from "antd";
+import { Input, Form, Select, message, Modal } from "antd";
 import React from "react";
 import { useState, useEffect } from "react";
-import { PlusOutlined, QuestionCircleOutlined } from "@ant-design/icons";
+
 import axios from "axios";
-import moment from "moment";
 
 const AddNewHistoryForm = ({ visible, onCancel }) => {
-  //generate to store data from input
-  const [addBookData, setAddBookData] = useState({
-    categoryId: "",
-    title: "",
-    author: "",
-    price: 0,
-    amount: 0,
-    printLength: 0,
-    releaseYear: 0,
-    publisher: "",
-    description: "",
-    languageId: "",
-  });
-
   const [form] = Form.useForm();
 
   const { Option } = Select;
@@ -122,10 +97,6 @@ const AddNewHistoryForm = ({ visible, onCancel }) => {
   };
   /* eslint-enable no-template-curly-in-string */
 
-  const handleClick = () => {
-    console.log("addbookdata", addBookData);
-  };
-
   return (
     <Modal
       width={1000}
@@ -170,10 +141,7 @@ const AddNewHistoryForm = ({ visible, onCancel }) => {
           label="Customer Email"
           rules={[{ required: true }]}
         >
-          <Select
-            placeholder="Select Customer Email..."
-            style={{ width: "50%" }}
-          >
+          <Select placeholder="Select Customer Email..." style={{ width: "60%" }}>
             {customers.map((customer) => (
               <Option key={customer.key}>{customer.email}</Option>
             ))}
@@ -183,7 +151,6 @@ const AddNewHistoryForm = ({ visible, onCancel }) => {
           <Input style={{ width: "40%" }} />
         </Form.Item>
       </Form>
-      <button onClick={handleClick}>Click me!</button>
     </Modal>
   );
 };

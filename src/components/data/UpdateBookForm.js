@@ -1,27 +1,10 @@
-import {
-  Input,
-  Button,
-  Form,
-  InputNumber,
-  Select,
-  Popconfirm,
-  message,
-  Modal,
-  DatePicker,
-} from "antd";
+import { Input, Form, InputNumber, message, Modal } from "antd";
 import React from "react";
 import { useState, useEffect } from "react";
-import { PlusOutlined, QuestionCircleOutlined } from "@ant-design/icons";
+
 import axios from "axios";
-import moment from "moment";
 
 const UpdateBookForm = ({ visible, onCancel, fields }) => {
-  //data
-  //const [data, setData] = useState(fields);
-
-  //generate to store data from input
-  const [addBookData, setAddBookData] = useState();
-
   const [form] = Form.useForm();
 
   useEffect(() => {
@@ -70,15 +53,6 @@ const UpdateBookForm = ({ visible, onCancel, fields }) => {
   };
   /* eslint-enable no-template-curly-in-string */
 
-  const onFinish = (values: any) => {
-    console.log(values);
-  };
-
-  //show data
-  const onClick = () => {
-    console.log("Passed Data", fields);
-  };
-
   return (
     <Modal
       width={1000}
@@ -95,7 +69,6 @@ const UpdateBookForm = ({ visible, onCancel, fields }) => {
           .validateFields()
           .then((values) => {
             form.resetFields();
-            e.preventDefault();
             onCreate(values);
           })
           .catch((info) => {
@@ -133,7 +106,6 @@ const UpdateBookForm = ({ visible, onCancel, fields }) => {
           <Input.TextArea />
         </Form.Item>
       </Form>
-      <button onClick={onClick}>Click me!</button>
     </Modal>
   );
 };

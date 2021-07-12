@@ -1,6 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { Button } from "antd";
+import { Link, NavLink } from "react-router-dom";
+import { Button, Modal, message } from "antd";
 import {
   ReadOutlined,
   UserOutlined,
@@ -8,8 +8,30 @@ import {
   BookOutlined,
   HistoryOutlined,
   LogoutOutlined,
+  ExclamationCircleOutlined,
 } from "@ant-design/icons";
-const SideNav = () => {
+
+const SideNav = ({ token, setToken }) => {
+  const { confirm } = Modal;
+
+  const showDeleteConfirm = () => {
+    confirm({
+      title: "Are you sure to log out?",
+      icon: <ExclamationCircleOutlined />,
+      okText: "Yes",
+      okType: "danger",
+      cancelText: "No",
+      onOk() {
+        message.success("Logout success");
+        sessionStorage.clear();
+        window.location.reload();
+      },
+      onCancel() {
+        console.log("Cancel");
+      },
+    });
+  };
+
   return (
     <div className="side-nav">
       <h1 className="logo">
@@ -21,31 +43,31 @@ const SideNav = () => {
           <UserOutlined className="user-outlined" />
         </div>
         <div className="user-name">
-          <p className="name">Admin</p>
-          <p className="user-location">HCM city</p>
+          <p className="name">{token.managerUsername.toUpperCase()}</p>
+          <p className="user-location">{token.fullname}</p>
         </div>
       </div>
       <div className="sidebar-menu">
         <p className="page">PAGES</p>
         <ul className="sidebar-list">
-          <Link to="/" >
+          <NavLink to="/home" activeClassName="active-link">
             <li>
               <AppstoreOutlined />
               <span>Overview</span>
             </li>
-          </Link>
-          <Link to="/bookLists">
+          </NavLink>
+          <NavLink to="/bookLists" activeClassName="active-link">
             <li>
               <BookOutlined />
               <span>Books List</span>
             </li>
-          </Link>
-          <Link to="/requestsHistory">
+          </NavLink>
+          <NavLink to="/requestsHistory" activeClassName="active-link">
             <li>
               <HistoryOutlined />
               <span>Requests History</span>
             </li>
-          </Link>
+          </NavLink>
         </ul>
       </div>
       <div className="logout">
@@ -54,6 +76,7 @@ const SideNav = () => {
           size="large"
           type="danger"
           icon={<LogoutOutlined />}
+          onClick={showDeleteConfirm}
         >
           <span className="logout-btn-text">LOGOUT</span>
         </Button>

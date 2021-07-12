@@ -1,85 +1,83 @@
-import {
-  Input,
-  Button,
-  Table,
-  Divider,
-  Tag,
-  Space,
-  Form,
-  Checkbox,
-} from "antd";
+import { Button } from "antd";
 import React from "react";
 // import BookTable from "./data/BookTable";
-import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { PlusOutlined, EditTwoTone } from "@ant-design/icons";
+import {} from "react-router-dom";
+import { useState } from "react";
+import { PlusOutlined } from "@ant-design/icons";
 import AddNewBookForm from "./AddNewBookForm";
+import AddNewCategoryForm from "./AddNewCategoryForm";
+import AddNewLanguageForm from "./AddNewLanguageForm";
 import BookTable from "./data/BookTable";
 
 const BookLists = () => {
-  const [nameSearch, setNameSearch] = useState("");
-
- 
-
-  const { Search } = Input;
   //visible addNewBookForm popup
-  const [visible, setVisible] = useState(false);
+  const [addNewBookvisible, setAddNewBookVisible] = useState(false);
+  //visible addNewCategoryForm popup
+  const [addNewCategoryvisible, setAddNewCategoryVisible] = useState(false);
+  //visible addNewLanguageForm popup
+  const [addNewLanguagevisible, setAddNewLanguageVisible] = useState(false);
 
   const onCreate = (values) => {
     console.log("Received values from form: ", values);
-    setVisible(false);
+    setAddNewBookVisible(false);
   };
-
-  
 
   return (
     <div className="main-content-container">
       <div className="main-content">
         <div className="main-content-row">
-          <div className="row-search">
-            <Input.Search
-              placeholder="Search..."
-              className="search-bar"
-              size="large"
-              allowClear
-              // onSearch={(search) => {
-              //   //set nameSearch
-              //   console.log("curr", search);
-              //   setNameSearch(search);
-              //   console.log("ns", nameSearch);
-              //   console.log("BD", books);
-              //   console.log(typeof books);
-
-              //   let i = 1;
-              //   const resultSearch = books.map((row) => ({
-              //     row.title.includes(nameSearch)
-              //   }));
-
-              //   console.log("SD", resultSearch);
-              //   if (resultSearch.length === 0) {
-              //     console.log("Arr Null!");
-              //   }
-              // }}
-              style={{ width: 600 }}
-              enterButton
-            />
-          </div>
-          <div className="row-btn-add">
-            <Button
-              type="primary"
-              size="large"
-              icon={<PlusOutlined />}
-              onClick={() => setVisible(true)}
-            >
-              Add New Book
-            </Button>
-            <AddNewBookForm
-              visible={visible}
-              onCreate={onCreate}
-              onCancel={() => {
-                setVisible(false);
-              }}
-            />
+          <div className="row-btn-add-container">
+            <div className="row-btn-add">
+              <Button
+                type="primary"
+                size="large"
+                icon={<PlusOutlined />}
+                onClick={() => setAddNewBookVisible(true)}
+              >
+                Add New Book
+              </Button>
+              <AddNewBookForm
+                visible={addNewBookvisible}
+                onCreate={onCreate}
+                onCancel={() => {
+                  setAddNewBookVisible(false);
+                }}
+              />
+            </div>
+            <div className="row-btn-add">
+              <Button
+                type="default"
+                size="large"
+                icon={<PlusOutlined />}
+                onClick={() => setAddNewCategoryVisible(true)}
+              >
+                Add Category
+              </Button>
+              <AddNewCategoryForm
+                visible={addNewCategoryvisible}
+                onCreate={onCreate}
+                onCancel={() => {
+                  setAddNewCategoryVisible(false);
+                }}
+              />
+            </div>
+            <div className="row-btn-add">
+              <Button
+                type="default"
+                size="large"
+                icon={<PlusOutlined />}
+                onClick={() => setAddNewLanguageVisible(true)}
+              >
+                Add Language
+              </Button>
+              <AddNewLanguageForm
+                visible={addNewLanguagevisible}
+                onCreate={onCreate}
+                onCancel={() => {
+                  setAddNewLanguageVisible(false);
+                }}
+              />
+            </div>
           </div>
         </div>
         <div className="main-content-row">
