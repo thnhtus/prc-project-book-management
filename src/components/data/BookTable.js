@@ -63,7 +63,7 @@ const BookTable = () => {
   //get books form api
   const getData = async () => {
     await axios
-      .get(`https://bookmanagementapi.azurewebsites.net/api/books/search-books`)
+      .get(`https://bookmanagement-api.azurewebsites.net/api/books/search-books`)
       .then((res) => {
         var i = 1;
 
@@ -94,7 +94,7 @@ const BookTable = () => {
   //get category from api
   const getCategories = async () => {
     await axios
-      .get(`https://bookmanagementapi2.azurewebsites.net/api/category/all/0/0`)
+      .get(`https://bookmanagement-api2.azurewebsites.net/api/category/all/0/0`)
       .then((res) => {
         setCategories(
           res.data.map((row) => ({
@@ -111,7 +111,7 @@ const BookTable = () => {
   //get languages from api
   const getLanguages = async () => {
     await axios
-      .get(`https://bookmanagementapi2.azurewebsites.net/api/language/all/0/0`)
+      .get(`https://bookmanagement-api2.azurewebsites.net/api/language/all/0/0`)
       .then((res) => {
         setLanguages(
           res.data.map((row) => ({
@@ -263,7 +263,7 @@ const BookTable = () => {
           case "Politics & Government":
             color = "gold";
             break;
-          case "Arts & Photography":
+          case "Arts and Photography":
             color = "green";
             break;
           case "Children's Books":

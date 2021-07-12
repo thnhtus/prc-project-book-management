@@ -35,7 +35,7 @@ const HistoryTable = () => {
   const getData = async () => {
     await axios
       .get(
-        `https://bookmanagementapi.azurewebsites.net/api/histories/search-histories`
+        `https://bookmanagement-api.azurewebsites.net/api/histories/search-histories`
       )
       .then((res) => {
         var i = 1;
@@ -74,7 +74,7 @@ const HistoryTable = () => {
         let id = record.historyId;
         await axios
           .post(
-            "https://bookmanagementapi.azurewebsites.net/api/histories/update-history?historyId=" +
+            "https://bookmanagement-api.azurewebsites.net/api/histories/update-history?historyId=" +
               id
           )
           .then((res) => {

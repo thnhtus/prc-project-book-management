@@ -15,7 +15,7 @@ const UpdateBookForm = ({ visible, onCancel, fields }) => {
   const onCreate = async (values) => {
     await axios
       .post(
-        `https://bookmanagementapi.azurewebsites.net/api/languages/update-book`,
+        `https://bookmanagement-api.azurewebsites.net/api/languages/update-book`,
         {
           bookId: values.bookId,
           price: values.price,
@@ -68,7 +68,7 @@ const UpdateBookForm = ({ visible, onCancel, fields }) => {
         form
           .validateFields()
           .then((values) => {
-            form.resetFields();
+            //form.resetFields();
             onCreate(values);
           })
           .catch((info) => {

@@ -10,7 +10,7 @@ const AddNewLanguageForm = ({ visible, onCancel }) => {
   const onCreate = async (values) => {
     await axios
       .put(
-        `https://bookmanagementapi.azurewebsites.net/api/languages/add-language?languageName=` +
+        `https://bookmanagement-api.azurewebsites.net/api/languages/add-language?languageName=` +
           values.languageName
       )
       .then((res) => {

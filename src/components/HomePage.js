@@ -25,7 +25,7 @@ const HomePage = () => {
   //get books from api
   const getTotalBooks = async () => {
     await axios
-      .get(`https://bookmanagementapi2.azurewebsites.net/api/book/count`)
+      .get(`https://bookmanagement-api2.azurewebsites.net/api/book/count`)
       .then((res) => {
         setTotalBook(res.data);
       })
@@ -37,7 +37,7 @@ const HomePage = () => {
   //get bookForRent from api
   const getTotalBookForRent = async () => {
     await axios
-      .get(`https://bookmanagementapi2.azurewebsites.net/api/history/count`)
+      .get(`https://bookmanagement-api2.azurewebsites.net/api/history/count`)
       .then((res) => {
         setTotalBookForRent(res.data);
       })
@@ -49,7 +49,7 @@ const HomePage = () => {
   //get bookRenter from api
   const getTotalBookRenter = async () => {
     await axios
-      .get(`https://bookmanagementapi2.azurewebsites.net/api/customer/count`)
+      .get(`https://bookmanagement-api2.azurewebsites.net/api/customer/count`)
       .then((res) => {
         setTotalBookRenter(res.data);
       })

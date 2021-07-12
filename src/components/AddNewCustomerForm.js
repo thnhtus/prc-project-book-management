@@ -10,7 +10,7 @@ const AddNewCustomerForm = ({ visible, onCancel }) => {
   const onCreate = async (values) => {
     await axios
       .put(
-        `https://bookmanagementapi.azurewebsites.net/api/customers/add-customer`,
+        `https://bookmanagement-api.azurewebsites.net/api/customers/add-customer`,
         {
           email: values.email,
           phone: values.phone,
@@ -41,7 +41,8 @@ const AddNewCustomerForm = ({ visible, onCancel }) => {
       number: "${label} is not a valid number!",
     },
     number: {
-      range: "${label} must be greater than ${min}",
+      pattern: /^[\d]{0,10}$/,
+      range: "${label} must be less than 10 digits",
     },
   };
   /* eslint-enable no-template-curly-in-string */
@@ -73,10 +74,24 @@ const AddNewCustomerForm = ({ visible, onCancel }) => {
           phone: "",
         }}
       >
-        <Form.Item name="email" label="Email" rules={[{ type: "email" }]}>
+        <Form.Item
+          name="email"
+          label="Email"
+          rules={[{ type: "email", required: true, max: 10 }]}
+        >
           <Input />
         </Form.Item>
-        <Form.Item name="phone" label="Phone" rules={[{ required: true }]}>
+        <Form.Item
+          name="phone"
+          label="Phone"
+          rules={[
+            {
+              required: true,
+              pattern: /^[\d]{0,10}$/,
+              message: "Phone number must be less than 10 digits",
+            },
+          ]}
+        >
           <Input />
         </Form.Item>
       </Form>

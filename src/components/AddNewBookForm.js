@@ -33,7 +33,7 @@ const AddNewBookForm = ({ visible, onCancel }) => {
   const getCategories = async () => {
     await axios
       .get(
-        `https://bookmanagementapi.azurewebsites.net/api/categories/search-categories`
+        `https://bookmanagement-api.azurewebsites.net/api/categories/search-categories`
       )
       .then((res) => {
         setCategories(
@@ -52,7 +52,7 @@ const AddNewBookForm = ({ visible, onCancel }) => {
   const getLanguages = async () => {
     await axios
       .get(
-        `https://bookmanagementapi.azurewebsites.net/api/languages/search-languages`
+        `https://bookmanagement-api.azurewebsites.net/api/languages/search-languages`
       )
       .then((res) => {
         setLanguages(
@@ -71,7 +71,7 @@ const AddNewBookForm = ({ visible, onCancel }) => {
   const onCreate = async (values) => {
     await axios
       .put(
-        `http://bookmanagement-api.azurewebsites.net/api/books/search-books`,
+        `https://bookmanagement-api.azurewebsites.net/api/languages/add-book`,
         {
           categoryId: values.category,
           title: values.bookTitle,

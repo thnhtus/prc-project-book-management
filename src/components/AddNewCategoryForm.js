@@ -10,8 +10,7 @@ const AddNewCategoryForm = ({ visible, onCancel }) => {
   const onCreate = async (values) => {
     await axios
       .put(
-        `https://bookmanagementapi.azurewebsites.net/api/categories/add-category?categoryName=` +
-          values.categoryName
+        `https://bookmanagement-api.azurewebsites.net/api/categories/add-category?categoryName=${values.categoryName}`
       )
       .then((res) => {
         if (res.status === 200) {

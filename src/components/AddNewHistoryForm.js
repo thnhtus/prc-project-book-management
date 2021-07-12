@@ -23,7 +23,7 @@ const AddNewHistoryForm = ({ visible, onCancel }) => {
   //get books from api
   const getBooks = async () => {
     await axios
-      .get(`https://bookmanagementapi2.azurewebsites.net/api/book/all/0`)
+      .get(`https://bookmanagement-api2.azurewebsites.net/api/book/all/0`)
       .then((res) => {
         setBooks(
           res.data.map((row) => ({
@@ -41,7 +41,7 @@ const AddNewHistoryForm = ({ visible, onCancel }) => {
   //get customers from api
   const getCustomer = async () => {
     await axios
-      .get(`https://bookmanagementapi2.azurewebsites.net/api/customer/all/0`)
+      .get(`https://bookmanagement-api2.azurewebsites.net/api/customer/all/0`)
       .then((res) => {
         setCustomers(
           res.data.map((row) => ({
@@ -60,7 +60,7 @@ const AddNewHistoryForm = ({ visible, onCancel }) => {
   const onCreate = async (values) => {
     await axios
       .put(
-        `https://bookmanagementapi.azurewebsites.net/api/histories/add-history`,
+        `https://bookmanagement-api.azurewebsites.net/api/histories/add-history`,
         {
           bookId: values.bookId,
           customerId: values.customerId,
