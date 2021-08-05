@@ -11,6 +11,7 @@
     "chartist": "^0.10.1",
     "chartist-plugin-pointlabels": "^0.0.6",
     "chartist-plugin-tooltips-updated": "^0.1.4",
+    "dotenv": "^8.2.0",
     "moment": "^2.29.1",
     "moment-timezone": "^0.5.33",
     "react": "^17.0.2",
